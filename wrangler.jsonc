@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eddieaps-detailing",
   "compatibility_date": "2026-05-26",
+  "pages_build_output_dir": "dist",
   "observability": {
     "enabled": false,
     "head_sampling_rate": 1,
