@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eddieaps-detailing",
+  "account_id": "9e1069f546a77c9ab4fe19d24ccf0a62",
   "compatibility_date": "2026-05-26",
   "pages_build_output_dir": "dist",
   "compatibility_flags": [
