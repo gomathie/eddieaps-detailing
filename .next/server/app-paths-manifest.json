@@ -1,0 +1,14 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/api/quotes/route": "app/api/quotes/route.js",
+  "/blog/page": "app/blog/page.js",
+  "/api/bookings/route": "app/api/bookings/route.js",
+  "/gallery/page": "app/gallery/page.js",
+  "/page": "app/page.js",
+  "/book/page": "app/book/page.js",
+  "/services/page": "app/services/page.js",
+  "/quote/page": "app/quote/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/services/[slug]/page": "app/services/[slug]/page.js"
+}
