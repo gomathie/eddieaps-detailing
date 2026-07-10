@@ -179,7 +179,7 @@ const submitBooking = async () => {
                 v-model="form.customerName"
                 type="text"
                 required
-                placeholder="John Doe"
+                placeholder="Kwasi Sarpong"
                 class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -190,7 +190,7 @@ const submitBooking = async () => {
                 v-model="form.customerEmail"
                 type="email"
                 required
-                placeholder="john@example.com"
+                placeholder="edmond@example.com"
                 class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
