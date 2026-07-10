@@ -29,12 +29,12 @@ const values = [
     </section>
 
     <!-- Mission -->
-    <section class="section-padding">
+    <section class="section-padding bg-slate-950">
       <div class="container-narrow max-w-4xl">
-        <div class="bg-gradient-to-br from-brand-50 to-white rounded-3xl p-8 md:p-16 border border-brand-100">
-          <div class="inline-block px-4 py-1.5 rounded-full bg-brand-100 text-brand-700 text-sm font-semibold mb-6">Our Vision</div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy">Becoming the Most Trusted Detailing Provider</h2>
-          <p class="text-lg text-gray-700 leading-relaxed">
+        <div class="bg-slate-900 rounded-3xl p-8 md:p-16 border border-slate-800">
+          <div class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm font-semibold mb-6">Our Vision</div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Becoming the Most Trusted Detailing Provider</h2>
+          <p class="text-lg text-slate-400 leading-relaxed">
             To become the most trusted and convenient provider of mobile and stationed car detailing services by delivering exceptional results and a seamless customer experience that makes every client fall in love with their vehicle again.
           </p>
         </div>
@@ -42,16 +42,16 @@ const values = [
     </section>
 
     <!-- Values -->
-    <section class="section-padding bg-gray-50">
+    <section class="section-padding bg-slate-950 border-t border-slate-900">
       <div class="container-narrow">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-navy">Our Core Values</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Our Core Values</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="value in values" :key="value.title" class="bg-white rounded-2xl p-8 shadow-sm card-hover">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center mb-6">
+          <div v-for="value in values" :key="value.title" class="bg-slate-900 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center mb-6">
               <UIcon :name="value.icon" class="w-7 h-7 text-white" />
             </div>
-            <h3 class="text-xl font-bold mb-3 text-navy">{{ value.title }}</h3>
-            <p class="text-gray-600">{{ value.description }}</p>
+            <h3 class="text-xl font-bold mb-3 text-white">{{ value.title }}</h3>
+            <p class="text-slate-400">{{ value.description }}</p>
           </div>
         </div>
       </div>

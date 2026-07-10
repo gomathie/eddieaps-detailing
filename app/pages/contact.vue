@@ -66,13 +66,13 @@ const contactMethods = [
     </section>
 
     <!-- Contact grid -->
-    <section class="section-padding">
+    <section class="section-padding bg-slate-950">
       <div class="container-narrow">
         <div class="grid lg:grid-cols-2 gap-12 items-start">
           <!-- Contact details -->
           <div>
-            <h2 class="text-3xl font-bold text-navy mb-4">Contact Details</h2>
-            <p class="text-gray-600 mb-8 leading-relaxed">
+            <h2 class="text-3xl font-bold text-white mb-4">Contact Details</h2>
+            <p class="text-slate-400 mb-8 leading-relaxed">
               We offer both mobile and stationed detailing. Call or WhatsApp us to arrange a convenient time and location.
             </p>
 
@@ -81,24 +81,24 @@ const contactMethods = [
                 v-for="method in contactMethods"
                 :key="method.label"
                 :href="method.href"
-                class="flex items-center gap-4 bg-white rounded-2xl p-5 shadow-sm border border-gray-100 card-hover"
+                class="flex items-center gap-4 bg-slate-900 rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-colors"
               >
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center flex-shrink-0">
                   <UIcon :name="method.icon" class="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <div class="text-sm text-gray-500">{{ method.label }}</div>
-                  <div class="text-lg font-semibold text-navy">{{ method.value }}</div>
+                  <div class="text-sm text-slate-500">{{ method.label }}</div>
+                  <div class="text-lg font-semibold text-white">{{ method.value }}</div>
                 </div>
               </a>
             </div>
 
-            <div class="mt-8 bg-gradient-to-br from-brand-50 to-white rounded-2xl p-6 border border-brand-100">
-              <div class="flex items-center gap-2 text-navy font-bold mb-2">
-                <UIcon name="i-heroicons-clock" class="w-5 h-5 text-brand-600" />
+            <div class="mt-8 bg-slate-900 rounded-2xl p-6 border border-slate-800">
+              <div class="flex items-center gap-2 text-white font-bold mb-2">
+                <UIcon name="i-heroicons-clock" class="w-5 h-5 text-blue-500" />
                 Working Hours
               </div>
-              <p class="text-gray-700 text-sm leading-relaxed">
+              <p class="text-slate-400 text-sm leading-relaxed">
                 Monday – Saturday: 8:00 AM – 6:00 PM<br>
                 Sunday: By appointment only
               </p>
@@ -106,55 +106,55 @@ const contactMethods = [
           </div>
 
           <!-- Message form -->
-          <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-gray-100">
-            <h2 class="text-3xl font-bold text-navy mb-6">Send a Message</h2>
+          <div class="bg-slate-900 rounded-3xl p-8 md:p-10 border border-slate-800">
+            <h2 class="text-3xl font-bold text-white mb-6">Send a Message</h2>
 
             <form class="space-y-5" @submit.prevent="submit">
               <div>
-                <label for="name" class="block text-sm font-semibold text-navy mb-1.5">Full Name</label>
+                <label for="name" class="block text-sm font-semibold text-slate-300 mb-1.5">Full Name</label>
                 <input
                   id="name"
                   v-model="form.name"
                   type="text"
                   required
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                  class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:border-blue-500 outline-none transition"
                   placeholder="Your name"
                 >
               </div>
 
               <div class="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label for="email" class="block text-sm font-semibold text-navy mb-1.5">Email</label>
+                  <label for="email" class="block text-sm font-semibold text-slate-300 mb-1.5">Email</label>
                   <input
                     id="email"
                     v-model="form.email"
                     type="email"
                     required
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                    class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:border-blue-500 outline-none transition"
                     placeholder="you@example.com"
                   >
                 </div>
                 <div>
-                  <label for="phone" class="block text-sm font-semibold text-navy mb-1.5">Phone</label>
+                  <label for="phone" class="block text-sm font-semibold text-slate-300 mb-1.5">Phone</label>
                   <input
                     id="phone"
                     v-model="form.phone"
                     type="tel"
                     required
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                    class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:border-blue-500 outline-none transition"
                     placeholder="0595118973"
                   >
                 </div>
               </div>
 
               <div>
-                <label for="message" class="block text-sm font-semibold text-navy mb-1.5">Message</label>
+                <label for="message" class="block text-sm font-semibold text-slate-300 mb-1.5">Message</label>
                 <textarea
                   id="message"
                   v-model="form.message"
                   rows="5"
                   required
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition resize-none"
+                  class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:border-blue-500 outline-none transition resize-none"
                   placeholder="How can we help you?"
                 />
               </div>
@@ -162,16 +162,16 @@ const contactMethods = [
               <button
                 type="submit"
                 :disabled="status === 'loading'"
-                class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 text-white font-semibold shadow-md hover:shadow-lg hover:from-brand-500 hover:to-brand-600 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold shadow-md hover:shadow-lg hover:from-blue-500 hover:to-blue-600 transition disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {{ status === 'loading' ? 'Sending...' : 'Send Message' }}
               </button>
 
-              <p v-if="status === 'success'" class="text-sm font-medium text-emerald-600 flex items-center gap-2">
+              <p v-if="status === 'success'" class="text-sm font-medium text-emerald-400 flex items-center gap-2">
                 <UIcon name="i-heroicons-check-circle" class="w-5 h-5" />
                 {{ feedback }}
               </p>
-              <p v-else-if="status === 'error'" class="text-sm font-medium text-red-600 flex items-center gap-2">
+              <p v-else-if="status === 'error'" class="text-sm font-medium text-red-400 flex items-center gap-2">
                 <UIcon name="i-heroicons-exclamation-circle" class="w-5 h-5" />
                 {{ feedback }}
               </p>
