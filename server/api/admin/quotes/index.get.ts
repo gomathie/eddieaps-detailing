@@ -1,5 +1,5 @@
-import { useDb } from '~/server/utils/db'
-import { quotes } from '~/server/database/schema'
+import { useDb } from '~~/server/utils/db'
+import { quotes } from '~~/server/database/schema'
 import { desc } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {

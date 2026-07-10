@@ -1,5 +1,5 @@
-import { useDb } from '~/server/utils/db'
-import { bookings } from '~/server/database/schema'
+import { useDb } from '~~/server/utils/db'
+import { bookings } from '~~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)

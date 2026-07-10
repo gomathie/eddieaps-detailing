@@ -1,5 +1,5 @@
-import { useDb } from '~/server/utils/db'
-import { blogPosts } from '~/server/database/schema'
+import { useDb } from '~~/server/utils/db'
+import { blogPosts } from '~~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
   try {
