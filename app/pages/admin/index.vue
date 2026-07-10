@@ -2,93 +2,26 @@
 import { ref } from 'vue'
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
+  middleware: 'admin'
 })
 
 const activeTab = ref('bookings') // bookings, quotes, messages
 
-// Mock fallbacks for administration dashboard demo
-const fallbackBookings = [
-  {
-    id: 1,
-    customerName: 'Marcus V.',
-    customerEmail: 'marcus@example.com',
-    customerPhone: '0595118973',
-    vehicleMake: 'Tesla',
-    vehicleModel: 'Model Y',
-    vehicleYear: 2024,
-    vehicleType: 'SUV',
-    serviceName: 'Complete Detailing',
-    preferredDate: '2026-07-02',
-    preferredTime: '10:00 AM',
-    address: '45 Blue Drive, Bay Area',
-    notes: 'Please focus on dog hair in trunk.',
-    status: 'Pending',
-    createdAt: '2026-06-30'
-  },
-  {
-    id: 2,
-    customerName: 'Sofia R.',
-    customerEmail: 'sofia@example.com',
-    customerPhone: '0591357411',
-    vehicleMake: 'Porsche',
-    vehicleModel: '911 Carrera',
-    vehicleYear: 2022,
-    vehicleType: 'Sport Coupe',
-    serviceName: 'Ceramic Paint Protection',
-    preferredDate: '2026-07-05',
-    preferredTime: '08:00 AM',
-    address: '',
-    notes: 'Stationed shop request. Paint polishing needed first.',
-    status: 'Confirmed',
-    createdAt: '2026-06-29'
-  }
-]
-
-const fallbackQuotes = [
-  {
-    id: 1,
-    customerName: 'George K.',
-    customerEmail: 'george@example.com',
-    customerPhone: '0595118973',
-    vehicleMake: 'Ford',
-    vehicleModel: 'F-150',
-    vehicleYear: 2021,
-    serviceRequired: 'Multiple Vehicles / Custom Package',
-    vehicleCondition: 'Extremely Dirty',
-    preferredDate: '2026-07-08',
-    notes: 'Need quote for Ford F-150 and a Toyota RAV4 in the same driveway.',
-    status: 'Pending',
-    createdAt: '2026-06-30'
-  }
-]
-
-const fallbackMessages = [
-  {
-    id: 1,
-    name: 'Emily Davis',
-    email: 'emily@example.com',
-    phone: '0591357411',
-    message: 'Hello, do you offer gift cards for detailing? I would like to buy one for my husband.',
-    status: 'unread',
-    createdAt: '2026-06-30'
-  }
-]
-
-// API Fetches with Mocks as Fallback
+// Live data from D1. Empty arrays until real requests come in.
 const { data: bookingsList, refresh: refreshBookings } = await useFetch('/api/admin/bookings', {
   lazy: true,
-  default: () => fallbackBookings
+  default: () => []
 })
 
 const { data: quotesList, refresh: refreshQuotes } = await useFetch('/api/admin/quotes', {
   lazy: true,
-  default: () => fallbackQuotes
+  default: () => []
 })
 
 const { data: messagesList, refresh: refreshMessages } = await useFetch('/api/admin/messages', {
   lazy: true,
-  default: () => fallbackMessages
+  default: () => []
 })
 
 // Administrative actions
