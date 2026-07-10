@@ -24,6 +24,106 @@ const { data: messagesList, refresh: refreshMessages } = await useFetch('/api/ad
   default: () => []
 })
 
+// --- Search & filter ---
+const searchQuery = ref('')
+const statusFilter = ref('all')
+
+watch(activeTab, () => {
+  searchQuery.value = ''
+  statusFilter.value = 'all'
+  exportOpen.value = false
+})
+
+const statusOptions = computed(() => {
+  if (activeTab.value === 'bookings') return ['all', 'Pending', 'Confirmed', 'Completed', 'Cancelled']
+  if (activeTab.value === 'quotes') return ['all', 'Pending', 'Sent', 'Declined']
+  return ['all', 'unread', 'read']
+})
+
+const applyFilter = (list: any[]) => {
+  const q = searchQuery.value.trim().toLowerCase()
+  return list.filter((item: any) => {
+    const hay = [item.customerName, item.name, item.customerEmail, item.email, item.customerPhone, item.phone]
+      .filter(Boolean).join(' ').toLowerCase()
+    const okSearch = !q || hay.includes(q)
+    const okStatus = statusFilter.value === 'all' || item.status === statusFilter.value
+    return okSearch && okStatus
+  })
+}
+
+const filteredBookings = computed(() => applyFilter(bookingsList.value))
+const filteredQuotes = computed(() => applyFilter(quotesList.value))
+const filteredMessages = computed(() => applyFilter(messagesList.value))
+
+// --- Export (CSV / Excel / PDF) ---
+const { exportCsv, exportExcel, exportPdf } = useAdminExport()
+const exportOpen = ref(false)
+
+const exportConfig = computed(() => {
+  const stamp = new Date().toISOString().slice(0, 10)
+  if (activeTab.value === 'bookings') {
+    return {
+      title: 'Eddie APS — Bookings',
+      filename: `eddie-aps-bookings-${stamp}`,
+      rows: filteredBookings.value,
+      columns: [
+        { label: 'Customer', value: (r: any) => r.customerName },
+        { label: 'Phone', value: (r: any) => r.customerPhone },
+        { label: 'Email', value: (r: any) => r.customerEmail },
+        { label: 'Vehicle', value: (r: any) => `${r.vehicleYear} ${r.vehicleMake} ${r.vehicleModel}` },
+        { label: 'Type', value: (r: any) => r.vehicleType },
+        { label: 'Service', value: (r: any) => r.serviceName },
+        { label: 'Date', value: (r: any) => r.preferredDate },
+        { label: 'Time', value: (r: any) => r.preferredTime },
+        { label: 'Address', value: (r: any) => r.address },
+        { label: 'Notes', value: (r: any) => r.notes },
+        { label: 'Status', value: (r: any) => r.status },
+        { label: 'Submitted', value: (r: any) => r.createdAt },
+      ],
+    }
+  }
+  if (activeTab.value === 'quotes') {
+    return {
+      title: 'Eddie APS — Quote Requests',
+      filename: `eddie-aps-quotes-${stamp}`,
+      rows: filteredQuotes.value,
+      columns: [
+        { label: 'Customer', value: (r: any) => r.customerName },
+        { label: 'Phone', value: (r: any) => r.customerPhone },
+        { label: 'Email', value: (r: any) => r.customerEmail },
+        { label: 'Vehicle', value: (r: any) => `${r.vehicleYear} ${r.vehicleMake} ${r.vehicleModel}` },
+        { label: 'Service Required', value: (r: any) => r.serviceRequired },
+        { label: 'Condition', value: (r: any) => r.vehicleCondition },
+        { label: 'Target Date', value: (r: any) => r.preferredDate },
+        { label: 'Status', value: (r: any) => r.status },
+        { label: 'Submitted', value: (r: any) => r.createdAt },
+      ],
+    }
+  }
+  return {
+    title: 'Eddie APS — Messages',
+    filename: `eddie-aps-messages-${stamp}`,
+    rows: filteredMessages.value,
+    columns: [
+      { label: 'Name', value: (r: any) => r.name },
+      { label: 'Phone', value: (r: any) => r.phone },
+      { label: 'Email', value: (r: any) => r.email },
+      { label: 'Message', value: (r: any) => r.message },
+      { label: 'Status', value: (r: any) => r.status },
+      { label: 'Submitted', value: (r: any) => r.createdAt },
+    ],
+  }
+})
+
+const doExport = (format: 'csv' | 'excel' | 'pdf') => {
+  const cfg = exportConfig.value
+  exportOpen.value = false
+  if (!cfg.rows.length) return
+  if (format === 'csv') exportCsv(cfg.rows, cfg.columns, cfg.filename)
+  else if (format === 'excel') exportExcel(cfg.rows, cfg.columns, cfg.filename)
+  else exportPdf(cfg.title, cfg.rows, cfg.columns)
+}
+
 // Administrative actions
 const updateBookingStatus = async (id: number, newStatus: string) => {
   try {
@@ -62,6 +162,39 @@ const markMessageRead = async (id: number) => {
   } catch (err) {
     const idx = messagesList.value.findIndex(m => m.id === id)
     if (idx !== -1) messagesList.value[idx].status = 'read'
+  }
+}
+
+const deleteBooking = async (id: number) => {
+  if (!confirm('Delete this booking permanently? This cannot be undone.')) return
+  try {
+    await $fetch(`/api/admin/bookings/${id}`, { method: 'DELETE' })
+    refreshBookings()
+  } catch (err) {
+    const i = bookingsList.value.findIndex((b: any) => b.id === id)
+    if (i !== -1) bookingsList.value.splice(i, 1)
+  }
+}
+
+const deleteQuote = async (id: number) => {
+  if (!confirm('Delete this quote request permanently? This cannot be undone.')) return
+  try {
+    await $fetch(`/api/admin/quotes/${id}`, { method: 'DELETE' })
+    refreshQuotes()
+  } catch (err) {
+    const i = quotesList.value.findIndex((q: any) => q.id === id)
+    if (i !== -1) quotesList.value.splice(i, 1)
+  }
+}
+
+const deleteMessage = async (id: number) => {
+  if (!confirm('Delete this message permanently? This cannot be undone.')) return
+  try {
+    await $fetch(`/api/admin/messages/${id}`, { method: 'DELETE' })
+    refreshMessages()
+  } catch (err) {
+    const i = messagesList.value.findIndex((m: any) => m.id === id)
+    if (i !== -1) messagesList.value.splice(i, 1)
   }
 }
 
@@ -148,12 +281,48 @@ const logout = async () => {
         </button>
       </div>
 
+      <!-- Toolbar: search, status filter, export -->
+      <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
+        <div class="flex flex-1 gap-3">
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Search name, email, or phone…"
+            class="flex-1 max-w-sm bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+          />
+          <select
+            v-model="statusFilter"
+            class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-blue-500"
+          >
+            <option v-for="opt in statusOptions" :key="opt" :value="opt">
+              {{ opt === 'all' ? 'All statuses' : opt }}
+            </option>
+          </select>
+        </div>
+        <div class="relative shrink-0">
+          <button
+            @click="exportOpen = !exportOpen"
+            class="px-4 py-2 text-sm font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg flex items-center gap-2"
+          >
+            ⬇ Export <span class="text-xs">▾</span>
+          </button>
+          <div
+            v-if="exportOpen"
+            class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-lg shadow-xl z-20 overflow-hidden"
+          >
+            <button @click="doExport('csv')" class="w-full text-left px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-800 hover:text-white">📄 CSV (.csv)</button>
+            <button @click="doExport('excel')" class="w-full text-left px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-800 hover:text-white">📊 Excel (.xls)</button>
+            <button @click="doExport('pdf')" class="w-full text-left px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-800 hover:text-white">🧾 PDF (print)</button>
+          </div>
+        </div>
+      </div>
+
       <!-- TAB CONTENTS -->
       
       <!-- Tab 1: Bookings List -->
       <div v-if="activeTab === 'bookings'" class="space-y-4">
         <div
-          v-for="b in bookingsList"
+          v-for="b in filteredBookings"
           :key="b.id"
           class="bg-slate-900 border border-slate-850 rounded-xl p-6 flex flex-col md:flex-row md:items-start md:justify-between gap-6 hover:border-slate-800 transition-colors"
         >
@@ -206,18 +375,25 @@ const logout = async () => {
             >
               Cancel
             </button>
+            <button
+              @click="deleteBooking(b.id)"
+              title="Delete permanently"
+              class="px-4.5 py-2 text-xs font-bold text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 rounded-lg transition-colors"
+            >
+              🗑 Delete
+            </button>
           </div>
         </div>
 
-        <div v-if="!bookingsList.length" class="text-center py-20 text-slate-500">
-          No bookings logged.
+        <div v-if="!filteredBookings.length" class="text-center py-20 text-slate-500">
+          {{ bookingsList.length ? 'No bookings match your search.' : 'No bookings logged.' }}
         </div>
       </div>
 
       <!-- Tab 2: Quotes List -->
       <div v-if="activeTab === 'quotes'" class="space-y-4">
         <div
-          v-for="q in quotesList"
+          v-for="q in filteredQuotes"
           :key="q.id"
           class="bg-slate-900 border border-slate-850 rounded-xl p-6 flex flex-col md:flex-row md:items-start md:justify-between gap-6 hover:border-slate-800 transition-colors"
         >
@@ -259,18 +435,25 @@ const logout = async () => {
             >
               Reject
             </button>
+            <button
+              @click="deleteQuote(q.id)"
+              title="Delete permanently"
+              class="px-4.5 py-2 text-xs font-bold text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 rounded-lg transition-colors"
+            >
+              🗑 Delete
+            </button>
           </div>
         </div>
 
-        <div v-if="!quotesList.length" class="text-center py-20 text-slate-500">
-          No quotes requested.
+        <div v-if="!filteredQuotes.length" class="text-center py-20 text-slate-500">
+          {{ quotesList.length ? 'No quotes match your search.' : 'No quotes requested.' }}
         </div>
       </div>
 
       <!-- Tab 3: Contact Messages -->
       <div v-if="activeTab === 'messages'" class="space-y-4">
         <div
-          v-for="m in messagesList"
+          v-for="m in filteredMessages"
           :key="m.id"
           class="bg-slate-900 border border-slate-855 rounded-xl p-6 flex flex-col md:flex-row md:items-start md:justify-between gap-6 hover:border-slate-800 transition-colors"
           :class="{ 'opacity-60': m.status === 'read' }"
@@ -295,18 +478,26 @@ const logout = async () => {
             </div>
           </div>
 
-          <div v-if="m.status === 'unread'" class="shrink-0 self-end md:self-start">
+          <div class="flex flex-row md:flex-col gap-2 shrink-0 self-end md:self-start">
             <button
+              v-if="m.status === 'unread'"
               @click="markMessageRead(m.id)"
               class="px-4.5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-lg transition-colors"
             >
               Mark Read
             </button>
+            <button
+              @click="deleteMessage(m.id)"
+              title="Delete permanently"
+              class="px-4.5 py-2 text-xs font-bold text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 rounded-lg transition-colors"
+            >
+              🗑 Delete
+            </button>
           </div>
         </div>
 
-        <div v-if="!messagesList.length" class="text-center py-20 text-slate-500">
-          No message inbox history.
+        <div v-if="!filteredMessages.length" class="text-center py-20 text-slate-500">
+          {{ messagesList.length ? 'No messages match your search.' : 'No message inbox history.' }}
         </div>
       </div>
 

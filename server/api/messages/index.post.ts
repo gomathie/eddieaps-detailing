@@ -21,6 +21,16 @@ export default defineEventHandler(async (event) => {
       status: 'unread',
       createdAt: new Date()
     })
+
+    await sendNotification(
+      event,
+      `New Message: ${body.name}`,
+      `<h2>New contact message</h2>
+       <p><strong>From:</strong> ${body.name} (${body.phone}, ${body.email})</p>
+       <p><strong>Message:</strong></p>
+       <p>${body.message}</p>`
+    )
+
     return { success: true, message: 'Your message has been sent successfully.' }
   } catch (error: any) {
     console.error('Failed to store contact message in D1 database:', error)

@@ -79,6 +79,9 @@ export default defineNuxtConfig({
     adminPasswordHash: process.env.ADMIN_PASSWORD_HASH,
     jwtSecret: process.env.JWT_SECRET,
     r2BucketName: process.env.R2_BUCKET_NAME,
+    resendApiKey: process.env.RESEND_API_KEY,
+    notifyEmail: process.env.NOTIFY_EMAIL,
+    notifyFrom: process.env.NOTIFY_FROM,
     public: {
       turnstileSiteKey: process.env.TURNSTILE_SITE_KEY,
       siteUrl: 'https://eddieapsdetailing.com',

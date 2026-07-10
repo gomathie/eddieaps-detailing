@@ -40,6 +40,18 @@ export default defineEventHandler(async (event) => {
       createdAt: new Date()
     })
 
+    await sendNotification(
+      event,
+      `New Booking: ${body.customerName}`,
+      `<h2>New booking request</h2>
+       <p><strong>Customer:</strong> ${body.customerName} (${body.customerPhone}, ${body.customerEmail})</p>
+       <p><strong>Vehicle:</strong> ${body.vehicleYear} ${body.vehicleMake} ${body.vehicleModel} (${body.vehicleType})</p>
+       <p><strong>Service:</strong> ${body.serviceName}</p>
+       <p><strong>Preferred:</strong> ${body.preferredDate} at ${body.preferredTime}</p>
+       <p><strong>Address:</strong> ${body.address || 'Stationed facility'}</p>
+       <p><strong>Notes:</strong> ${body.notes || '—'}</p>`
+    )
+
     return { success: true, message: 'Booking logged successfully.' }
   } catch (error: any) {
     console.error('Failed to write booking to D1 database:', error)
