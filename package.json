@@ -1,40 +1,27 @@
 {
   "name": "eddie-aps-detailing",
+  "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "deploy": "nuxi generate && wrangler pages deploy .output/public",
-    "db:migrate": "wrangler d1 execute eddie-aps-db --file=./app/server/database/migrations/0000_fearless_mordo.sql",
-    "db:studio": "drizzle-kit studio",
-    "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@nuxt/image": "^1.8.0",
-    "@nuxt/ui": "^2.19.0",
-    "@nuxtjs/seo": "^2.0.0",
-    "@pinia/nuxt": "^0.5.4",
-    "@vueuse/core": "^11.1.0",
-    "@vueuse/nuxt": "^11.1.0",
-    "drizzle-orm": "^0.33.0",
-    "pinia": "^2.2.2",
-    "zod": "^3.23.8"
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240925.0",
-    "@nuxt/eslint": "^0.5.7",
-    "@nuxtjs/tailwindcss": "^6.12.1",
-    "@types/node": "^22.5.5",
-    "drizzle-kit": "^0.24.2",
-    "eslint": "^9.11.0",
-    "nitro-cloudflare-dev": "^0.2.0",
-    "nuxt": "^3.13.2",
-    "typescript": "^5.6.2",
-    "wrangler": "^3.78.0"
+    "@types/node": "20.14.15",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.1",
+    "autoprefixer": "10.4.20",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.15",
+    "postcss": "8.4.41",
+    "tailwindcss": "3.4.10",
+    "typescript": "5.5.4"
   }
 }
