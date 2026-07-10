@@ -108,7 +108,7 @@ const submitContactForm = async () => {
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950 pt-20">
       <!-- Hero background image -->
       <img
-        src="/images/hero-detailing.webp"
+        src="/images/hero-bmw.webp"
         alt="Professional auto detailing"
         class="absolute inset-0 w-full h-full object-cover z-0"
       />
