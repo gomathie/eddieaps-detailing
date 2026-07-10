@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const config = useRuntimeConfig()
 
-  const adminUsername = 'admin'
+  const adminUsername = config.adminUsername || 'admin'
   const adminPassword = config.adminPasswordHash
 
   // Fail closed: if no admin password is configured, no login is possible.

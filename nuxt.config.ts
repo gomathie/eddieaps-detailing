@@ -76,12 +76,20 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     turnstileSecretKey: process.env.TURNSTILE_SECRET_KEY,
+    adminUsername: process.env.ADMIN_USERNAME,
     adminPasswordHash: process.env.ADMIN_PASSWORD_HASH,
     jwtSecret: process.env.JWT_SECRET,
     r2BucketName: process.env.R2_BUCKET_NAME,
     resendApiKey: process.env.RESEND_API_KEY,
     notifyEmail: process.env.NOTIFY_EMAIL,
     notifyFrom: process.env.NOTIFY_FROM,
+    // SMTP (configure later)
+    smtpHost: process.env.SMTP_HOST,
+    smtpPort: process.env.SMTP_PORT,
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    smtpFrom: process.env.SMTP_FROM,
+    smtpSecure: process.env.SMTP_SECURE,
     public: {
       turnstileSiteKey: process.env.TURNSTILE_SITE_KEY,
       siteUrl: 'https://eddieapsdetailing.com',
