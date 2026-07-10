@@ -145,10 +145,6 @@ const { data: service } = await useFetch(`/api/services/${slug.value}`, {
               <span class="text-blue-500">⏰</span>
               <span class="font-bold text-white">{{ service.duration }}</span>
             </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 flex items-center gap-2">
-              <span class="text-blue-500">💰</span>
-              <span>Starting at <strong class="text-white text-base">${{ service.basePrice }}</strong></span>
-            </div>
           </div>
 
           <p class="text-slate-400 leading-relaxed text-base mb-10">

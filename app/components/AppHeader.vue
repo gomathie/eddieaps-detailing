@@ -9,6 +9,8 @@ const navLinks = [
   { name: 'Services', path: '/services' },
   { name: 'Gallery', path: '/gallery' },
   { name: 'Blog', path: '/blog' },
+  { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
 ]
 
 const checkScroll = () => {
@@ -62,12 +64,6 @@ const closeMobileMenu = () => {
           >
             {{ link.name }}
           </NuxtLink>
-          <a
-            href="/#contact"
-            class="text-sm font-semibold text-slate-300 hover:text-white transition-colors duration-200"
-          >
-            Contact
-          </a>
         </nav>
 
         <!-- Desktop Call To Actions -->
@@ -150,13 +146,6 @@ const closeMobileMenu = () => {
           >
             {{ link.name }}
           </NuxtLink>
-          <a
-            href="/#contact"
-            class="block px-3 py-3 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-            @click="closeMobileMenu"
-          >
-            Contact
-          </a>
           <div class="pt-4 px-3 flex flex-col space-y-3">
             <a
               href="tel:0595118973"

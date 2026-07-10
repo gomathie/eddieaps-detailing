@@ -40,6 +40,12 @@
               <NuxtLink to="/blog" class="hover:text-white transition-colors duration-250">Detailing Blog</NuxtLink>
             </li>
             <li>
+              <NuxtLink to="/about" class="hover:text-white transition-colors duration-250">About Us</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/contact" class="hover:text-white transition-colors duration-250">Contact</NuxtLink>
+            </li>
+            <li>
               <NuxtLink to="/book" class="hover:text-white transition-colors duration-250">Book Online</NuxtLink>
             </li>
             <li>

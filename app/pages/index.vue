@@ -253,11 +253,7 @@ const submitContactForm = async () => {
                   {{ service.description }}
                 </p>
               </div>
-              <div class="pt-4 border-t border-slate-800/60 flex items-center justify-between">
-                <div>
-                  <span class="text-xs text-slate-500 block">Starting at</span>
-                  <span class="text-lg font-black text-white">${{ service.basePrice }}</span>
-                </div>
+              <div class="pt-4 border-t border-slate-800/60 flex items-center justify-end">
                 <NuxtLink
                   :to="`/services/${service.slug}`"
                   class="text-xs font-bold text-blue-500 group-hover:text-blue-400 flex items-center gap-1"

@@ -136,25 +136,19 @@ const { data: services } = await useFetch('/api/services', {
             </div>
 
             <!-- Footer / CTA -->
-            <div class="pt-6 border-t border-slate-800/80 flex items-center justify-between">
-              <div>
-                <span class="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Starting at</span>
-                <span class="text-2xl font-black text-white">${{ service.basePrice }}</span>
-              </div>
-              <div class="flex space-x-3">
-                <NuxtLink
-                  :to="`/services/${service.slug}`"
-                  class="px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-850 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors"
-                >
-                  Details
-                </NuxtLink>
-                <NuxtLink
-                  :to="`/book?service=${encodeURIComponent(service.name)}`"
-                  class="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-md hover:shadow-blue-500/10 transition-all duration-200"
-                >
-                  Book Now
-                </NuxtLink>
-              </div>
+            <div class="pt-6 border-t border-slate-800/80 flex items-center gap-3">
+              <NuxtLink
+                :to="`/services/${service.slug}`"
+                class="flex-1 text-center px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-850 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors"
+              >
+                Details
+              </NuxtLink>
+              <NuxtLink
+                :to="`/book?service=${encodeURIComponent(service.name)}`"
+                class="flex-1 text-center px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-md hover:shadow-blue-500/10 transition-all duration-200"
+              >
+                Book Now
+              </NuxtLink>
             </div>
           </div>
         </div>
