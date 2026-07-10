@@ -12,7 +12,7 @@ const staticCatalog: Record<string, any> = {
     description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',
     basePrice: 250,
     duration: '4-6 hours',
-    imageUrl: '/images/complete-detailing.jpg',
+    imageUrl: '/images/complete-detailing.webp',
     benefits: [
       'Increases vehicle resale value significantly',
       'Removes 99.9% of interior bacteria, germs, and odors',
@@ -37,7 +37,7 @@ const staticCatalog: Record<string, any> = {
     description: 'Thorough steam cleaning, shampooing, leather conditioning, and stain removal for a factory-fresh cabin experience.',
     basePrice: 150,
     duration: '3-4 hours',
-    imageUrl: '/images/deep-interior.jpg',
+    imageUrl: '/images/deep-interior.webp',
     benefits: [
       'Eliminates deeply embedded pet hair, coffee stains, and mud',
       'Disinfects high-touch areas (steering, dials, seatbelts)',
@@ -62,7 +62,7 @@ const staticCatalog: Record<string, any> = {
     description: 'Premium hand wash, clay bar treatment, iron decontamination, and high-gloss paint sealing or wax application.',
     basePrice: 120,
     duration: '2-3 hours',
-    imageUrl: '/images/exterior-detailing.jpg',
+    imageUrl: '/images/exterior-detailing.webp',
     benefits: [
       'Creates a durable hydrophobic paint shield that repels rain and dirt',
       'Saves clearcoat paint from acid rain, bird droppings, and UV UV rays',
@@ -86,7 +86,7 @@ const staticCatalog: Record<string, any> = {
     description: 'Remove swirl marks, minor scratches, and oxidation to restore deep color, clarity, and mirror-like reflections.',
     basePrice: 300,
     duration: '5-8 hours',
-    imageUrl: '/images/paint-polishing.jpg',
+    imageUrl: '/images/paint-polishing.webp',
     benefits: [
       'Removes 80-90% of clear coat swirl marks and light spider-web scratches',
       'Restores dull, hazy, or oxidized paint back to deep, glassy gloss',

@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
       category: 'Paint Protection',
       author: 'Eddie APS Detailing',
       date: 'June 18, 2026',
-      imageUrl: '/images/ceramic-coating.jpg',
+      imageUrl: '/images/ceramic-coating.webp',
       readTime: '5 min read'
     },
     {
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
       category: 'Interior Cleaning',
       author: 'Eddie APS Detailing',
       date: 'May 24, 2026',
-      imageUrl: '/images/deep-interior.jpg',
+      imageUrl: '/images/deep-interior.webp',
       readTime: '4 min read'
     },
     {
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
       category: 'Detailing Advice',
       author: 'Eddie APS Detailing',
       date: 'April 10, 2026',
-      imageUrl: '/images/complete-detailing.jpg',
+      imageUrl: '/images/complete-detailing.webp',
       readTime: '3 min read'
     },
     {
@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
       category: 'Vehicle Maintenance',
       author: 'Eddie APS Detailing',
       date: 'March 05, 2026',
-      imageUrl: '/images/luxury-car.jpg',
+      imageUrl: '/images/luxury-car.webp',
       readTime: '6 min read'
     }
   ]

@@ -9,7 +9,7 @@ const staticServices = [
     description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',
     basePrice: 250,
     duration: '4-6 hours',
-    imageUrl: '/images/complete-detailing.jpg'
+    imageUrl: '/images/complete-detailing.webp'
   },
   {
     slug: 'deep-interior',
@@ -17,7 +17,7 @@ const staticServices = [
     description: 'Thorough steam cleaning, shampooing, leather conditioning, and stain removal for a factory-fresh cabin experience.',
     basePrice: 150,
     duration: '3-4 hours',
-    imageUrl: '/images/deep-interior.jpg'
+    imageUrl: '/images/deep-interior.webp'
   },
   {
     slug: 'exterior-detailing',
@@ -25,7 +25,7 @@ const staticServices = [
     description: 'Premium hand wash, clay bar treatment, iron decontamination, and high-gloss paint sealing or wax application.',
     basePrice: 120,
     duration: '2-3 hours',
-    imageUrl: '/images/exterior-detailing.jpg'
+    imageUrl: '/images/exterior-detailing.webp'
   },
   {
     slug: 'paint-polishing',
@@ -33,7 +33,7 @@ const staticServices = [
     description: 'Remove swirl marks, minor scratches, and oxidation to restore deep color, clarity, and mirror-like reflections.',
     basePrice: 300,
     duration: '5-8 hours',
-    imageUrl: '/images/paint-polishing.jpg'
+    imageUrl: '/images/paint-polishing.webp'
   }
 ]
 
@@ -208,7 +208,7 @@ const submitContactForm = async () => {
           <div class="relative">
             <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl transform rotate-3 scale-98 opacity-20 blur-lg"></div>
             <img
-              src="/images/engine-bay.jpg"
+              src="/images/engine-bay.webp"
               alt="Detailing luxury car interior"
               class="relative z-10 w-full h-[400px] object-cover rounded-2xl shadow-xl border border-slate-800"
             />
@@ -376,8 +376,8 @@ const submitContactForm = async () => {
           <!-- Slider Component -->
           <div>
             <BeforeAfterSlider
-              before="/images/complete-detailing.jpg"
-              after="/images/exterior-detailing.jpg"
+              before="/images/complete-detailing.webp"
+              after="/images/exterior-detailing.webp"
               beforeLabel="Dirty / Swirly"
               afterLabel="Eddie APS Finish"
             />

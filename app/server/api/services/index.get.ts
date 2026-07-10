@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
       description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',
       basePrice: 250,
       duration: '4-6 hours',
-      imageUrl: '/images/complete-detailing.jpg',
+      imageUrl: '/images/complete-detailing.webp',
       highlights: ['Deep carpet extraction', 'Clay bar decontamination', '12-month paint sealant', 'Engine bay light wipe']
     },
     {
@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
       description: 'Thorough steam cleaning, shampooing, leather conditioning, and stain removal for a factory-fresh cabin experience.',
       basePrice: 150,
       duration: '3-4 hours',
-      imageUrl: '/images/deep-interior.jpg',
+      imageUrl: '/images/deep-interior.webp',
       highlights: ['Hot water extraction', 'Steam disinfection', 'Leather cleaning & protection', 'Dashboard & console scrub']
     },
     {
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
       description: 'Premium hand wash, clay bar treatment, iron decontamination, and high-gloss paint sealing or wax application.',
       basePrice: 120,
       duration: '2-3 hours',
-      imageUrl: '/images/exterior-detailing.jpg',
+      imageUrl: '/images/exterior-detailing.webp',
       highlights: ['Foam cannon pre-soak', 'Wheel barrel & caliper clean', 'Clay bar treatment', 'Hydrophobic paint sealer']
     },
     {
@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
       description: 'Remove swirl marks, minor scratches, and oxidation to restore deep color, clarity, and mirror-like reflections.',
       basePrice: 300,
       duration: '5-8 hours',
-      imageUrl: '/images/paint-polishing.jpg',
+      imageUrl: '/images/paint-polishing.webp',
       highlights: ['Dual-action machine polish', 'Swirl & halo mark removal', 'High-refraction gloss enhancement', 'Wax/sealant base coat']
     }
   ]

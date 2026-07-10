@@ -6,7 +6,7 @@ const staticServices = [
     description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',
     basePrice: 250,
     duration: '4-6 hours',
-    imageUrl: '/images/complete-detailing.jpg',
+    imageUrl: '/images/complete-detailing.webp',
     highlights: ['Deep carpet extraction', 'Clay bar decontamination', '12-month paint sealant', 'Engine bay light wipe']
   },
   {
@@ -15,7 +15,7 @@ const staticServices = [
     description: 'Thorough steam cleaning, shampooing, leather conditioning, and stain removal for a factory-fresh cabin experience.',
     basePrice: 150,
     duration: '3-4 hours',
-    imageUrl: '/images/deep-interior.jpg',
+    imageUrl: '/images/deep-interior.webp',
     highlights: ['Hot water extraction', 'Steam disinfection', 'Leather cleaning & protection', 'Dashboard & console scrub']
   },
   {
@@ -24,7 +24,7 @@ const staticServices = [
     description: 'Premium hand wash, clay bar treatment, iron decontamination, and high-gloss paint sealing or wax application.',
     basePrice: 120,
     duration: '2-3 hours',
-    imageUrl: '/images/exterior-detailing.jpg',
+    imageUrl: '/images/exterior-detailing.webp',
     highlights: ['Foam cannon pre-soak', 'Wheel barrel & caliper clean', 'Clay bar treatment', 'Hydrophobic paint sealer']
   },
   {
@@ -33,7 +33,7 @@ const staticServices = [
     description: 'Safe removal of grease, grime, and debris from your engine bay, followed by a dry protective dressing.',
     basePrice: 80,
     duration: '1-2 hours',
-    imageUrl: '/images/luxury-car.jpg',
+    imageUrl: '/images/luxury-car.webp',
     highlights: ['Electrical component shielding', 'Degrease & steam spray', 'High-temp protective dressing', 'Corrosion inspection']
   },
   {
@@ -42,7 +42,7 @@ const staticServices = [
     description: 'Remove swirl marks, minor scratches, and oxidation to restore deep color, clarity, and mirror-like reflections.',
     basePrice: 300,
     duration: '5-8 hours',
-    imageUrl: '/images/paint-polishing.jpg',
+    imageUrl: '/images/paint-polishing.webp',
     highlights: ['Dual-action machine polish', 'Swirl & halo mark removal', 'High-refraction gloss enhancement', 'Wax/sealant base coat']
   },
   {
@@ -51,7 +51,7 @@ const staticServices = [
     description: 'Restore faded, hazy, or yellowed headlights to crystal clarity. Enhances appearance and night driving safety.',
     basePrice: 60,
     duration: '1-1.5 hours',
-    imageUrl: '/images/headlight-restoration.jpg',
+    imageUrl: '/images/headlight-restoration.webp',
     highlights: ['Multi-stage wet sanding', 'High-speed rotary polish', 'UV protective clear coat sealant', 'Lumen output inspection']
   },
   {
@@ -60,7 +60,7 @@ const staticServices = [
     description: 'Premium hand-applied carnauba wax or synthetic polymer paint sealant for deep gloss and seasonal weather protection.',
     basePrice: 100,
     duration: '2 hours',
-    imageUrl: '/images/exterior-detailing.jpg',
+    imageUrl: '/images/exterior-detailing.webp',
     highlights: ['Hand carnauba application', 'Synthetic sealant layering', 'Gloss & depth enhancement', '3-6 months protection']
   },
   {
@@ -69,7 +69,7 @@ const staticServices = [
     description: 'Advanced nano-ceramic coatings that chemical bond with your clearcoat, creating a durable hydrophobic shield.',
     basePrice: 400,
     duration: '6-12 hours',
-    imageUrl: '/images/ceramic-coating.jpg',
+    imageUrl: '/images/ceramic-coating.webp',
     highlights: ['Multi-year nano coating', 'Intense water sheeting', 'Anti-graffiti & UV shield', 'Scratch resistance barrier']
   }
 ]

@@ -12,24 +12,24 @@ const staticGalleryItems = [
     title: 'Leather Seat Steam Restoration',
     type: 'slider',
     category: 'Interior',
-    before: '/images/complete-detailing.jpg',
-    after: '/images/deep-interior.jpg'
+    before: '/images/complete-detailing.webp',
+    after: '/images/deep-interior.webp'
   },
   {
     id: 2,
     title: 'Swirl Mark Paint Correction',
     type: 'slider',
     category: 'Paint Correction',
-    before: '/images/paint-polishing.jpg',
-    after: '/images/exterior-detailing.jpg'
+    before: '/images/paint-polishing.webp',
+    after: '/images/exterior-detailing.webp'
   },
   {
     id: 3,
     title: 'Hazy Headlight UV Restoration',
     type: 'slider',
     category: 'Headlights',
-    before: '/images/headlight-restoration.jpg',
-    after: '/images/ceramic-coating.jpg'
+    before: '/images/headlight-restoration.webp',
+    after: '/images/ceramic-coating.webp'
   },
   // Standard detailing portfolio images
   {
@@ -37,35 +37,35 @@ const staticGalleryItems = [
     title: 'Deep Carpet Shampooing',
     type: 'image',
     category: 'Interior',
-    url: '/images/engine-bay.jpg'
+    url: '/images/engine-bay.webp'
   },
   {
     id: 5,
     title: 'Ceramic Coating Reflection',
     type: 'image',
     category: 'Paint Correction',
-    url: '/images/ceramic-coating.jpg'
+    url: '/images/ceramic-coating.webp'
   },
   {
     id: 6,
     title: 'Engine Bay Grime Wash',
     type: 'image',
     category: 'Engine',
-    url: '/images/luxury-car.jpg'
+    url: '/images/luxury-car.webp'
   },
   {
     id: 7,
     title: 'Alloy Wheel Iron Cleanse',
     type: 'image',
     category: 'Exterior',
-    url: '/images/wheel-detail.jpg'
+    url: '/images/wheel-detail.webp'
   },
   {
     id: 8,
     title: 'Door Card Deep Steam Clean',
     type: 'image',
     category: 'Interior',
-    url: '/images/exterior-detailing.jpg'
+    url: '/images/exterior-detailing.webp'
   }
 ]
 
