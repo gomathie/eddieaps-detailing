@@ -6,9 +6,26 @@
   body {
     @apply bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-500 selection:text-white;
   }
-  
+
   html {
     scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Centered content container with responsive horizontal padding */
+  .container-narrow {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Standard vertical section rhythm */
+  .section-padding {
+    @apply py-16 sm:py-20;
+  }
+
+  /* Fallback hero background (usually sits behind an image + overlay) */
+  .gradient-hero {
+    @apply bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900;
   }
 }
 
