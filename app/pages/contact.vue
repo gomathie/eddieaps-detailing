@@ -50,8 +50,14 @@ const contactMethods = [
 <template>
   <div>
     <!-- Hero -->
-    <section class="gradient-hero pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-      <div class="container-narrow text-center">
+    <section class="relative overflow-hidden gradient-hero pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <img
+        src="/images/deep-interior.webp"
+        alt="Professional auto detailing"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/75 to-slate-950/90 z-0"></div>
+      <div class="relative z-10 container-narrow text-center">
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Get In Touch</h1>
         <p class="text-xl text-white/80 max-w-3xl mx-auto">
           Have a question or ready to book? Reach out and we'll get your vehicle looking its best.
