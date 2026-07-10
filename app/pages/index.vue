@@ -106,6 +106,14 @@ const submitContactForm = async () => {
   <div>
     <!-- 1. Hero Section -->
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950 pt-20">
+      <!-- Hero background image -->
+      <img
+        src="/images/hero-detailing.webp"
+        alt="Professional auto detailing"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/70 to-slate-950 z-0"></div>
+
       <!-- Background gradient layout -->
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(30,58,138,0.2)_0%,rgba(15,23,42,0.6)_80%)] z-0"></div>
       <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
