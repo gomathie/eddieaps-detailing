@@ -48,20 +48,7 @@ const closeMobileMenu = () => {
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-2.5" @click="closeMobileMenu">
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-600/30 ring-1 ring-white/10">
-            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <!-- car body -->
-              <path d="M3 13.5l1.6-4.2A2.5 2.5 0 0 1 7 7.6h7.9a2.5 2.5 0 0 1 2.3 1.5l1.7 4.1 1.4.6a1.5 1.5 0 0 1 .9 1.4v1.6a.8.8 0 0 1-.8.8h-1.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M3 13.5h13.5a1 1 0 0 1 1 1v2.7a.8.8 0 0 1-.8.8H4.3a1.3 1.3 0 0 1-1.3-1.3v-3.2z" fill="currentColor" fill-opacity="0.9"/>
-              <circle cx="7" cy="18" r="1.6" fill="#1e3a8a" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="14.5" cy="18" r="1.6" fill="#1e3a8a" stroke="currentColor" stroke-width="1.2"/>
-              <!-- shine sparkle -->
-              <path d="M19.5 4.2l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="text-xl sm:text-2xl font-extrabold tracking-wider text-white leading-none">
-            EDDIE <span class="text-blue-500">APS</span> <span class="hidden sm:inline">DETAILING</span>
-          </span>
+          <img src="/logo.svg" alt="Eddie APS Detailing" class="h-10 sm:h-12 w-auto brightness-0 invert" >
         </NuxtLink>
 
         <!-- Desktop Navigation -->

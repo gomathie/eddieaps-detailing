@@ -5,18 +5,7 @@
         <!-- Brand Info -->
         <div>
           <NuxtLink to="/" class="flex items-center gap-2.5 mb-4">
-            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 ring-1 ring-white/10">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 13.5l1.6-4.2A2.5 2.5 0 0 1 7 7.6h7.9a2.5 2.5 0 0 1 2.3 1.5l1.7 4.1 1.4.6a1.5 1.5 0 0 1 .9 1.4v1.6a.8.8 0 0 1-.8.8h-1.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3 13.5h13.5a1 1 0 0 1 1 1v2.7a.8.8 0 0 1-.8.8H4.3a1.3 1.3 0 0 1-1.3-1.3v-3.2z" fill="currentColor" fill-opacity="0.9"/>
-                <circle cx="7" cy="18" r="1.6" fill="#1e3a8a" stroke="currentColor" stroke-width="1.2"/>
-                <circle cx="14.5" cy="18" r="1.6" fill="#1e3a8a" stroke="currentColor" stroke-width="1.2"/>
-                <path d="M19.5 4.2l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z" fill="currentColor"/>
-              </svg>
-            </span>
-            <span class="text-xl font-black tracking-wider text-white">
-              EDDIE <span class="text-blue-500">APS</span>
-            </span>
+            <img src="/logo.svg" alt="Eddie APS Detailing" class="h-9 w-auto brightness-0 invert" >
           </NuxtLink>
           <p class="text-sm leading-relaxed mb-6">
             Providing high-quality mobile and stationed auto detailing services. Restoring and protecting your vehicle's beauty wherever you are.
