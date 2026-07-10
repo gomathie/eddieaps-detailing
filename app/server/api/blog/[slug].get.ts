@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
       category: 'Paint Protection',
       author: 'Eddie APS Detailing',
       date: 'June 18, 2026',
-      imageUrl: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/ceramic-coating.jpg',
       readTime: '5 min read',
       content: `
         <p class="lead text-lg text-slate-300 mb-6 leading-relaxed">Ceramic coatings represent the pinnacle of modern automotive surface care. Unlike traditional paste waxes that melt off within a few car washes, a true nano-ceramic coating bonds chemically with your vehicle's factory clear coat, providing a semi-permanent sacrificial barrier.</p>
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
       category: 'Interior Cleaning',
       author: 'Eddie APS Detailing',
       date: 'May 24, 2026',
-      imageUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/deep-interior.jpg',
       readTime: '4 min read',
       content: `
         <p class="lead text-lg text-slate-350 mb-6 leading-relaxed">Leather seats provide comfort and premium aesthetics, but they require periodic upkeep to maintain their flexibility and color. Debris, body oils, and UV exposure dry out leather, causing cracks, creases, and discoloration.</p>

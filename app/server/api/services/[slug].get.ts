@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
       description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',
       basePrice: 250,
       duration: '4-6 hours',
-      imageUrl: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/complete-detailing.jpg',
       benefits: [
         'Increases vehicle resale value significantly',
         'Removes 99.9% of interior bacteria, germs, and odors',
@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
       description: 'Thorough steam cleaning, shampooing, leather conditioning, and stain removal for a factory-fresh cabin experience.',
       basePrice: 150,
       duration: '3-4 hours',
-      imageUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/deep-interior.jpg',
       benefits: [
         'Eliminates deeply embedded pet hair, coffee stains, and mud',
         'Disinfects high-touch areas (steering, dials, seatbelts)',
@@ -84,7 +84,7 @@ export default defineEventHandler(async (event) => {
       description: 'Premium hand wash, clay bar treatment, iron decontamination, and high-gloss paint sealing or wax application.',
       basePrice: 120,
       duration: '2-3 hours',
-      imageUrl: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/exterior-detailing.jpg',
       benefits: [
         'Creates a durable hydrophobic paint shield that repels rain and dirt',
         'Saves clearcoat paint from acid rain, bird droppings, and environmental sap',
@@ -108,7 +108,7 @@ export default defineEventHandler(async (event) => {
       description: 'Remove swirl marks, minor scratches, and oxidation to restore deep color, clarity, and mirror-like reflections.',
       basePrice: 300,
       duration: '5-8 hours',
-      imageUrl: 'https://images.unsplash.com/photo-1520340356584-f9917d1ecc6f?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/paint-polishing.jpg',
       benefits: [
         'Removes 80-90% of clear coat swirl marks and light spider-web scratches',
         'Restores dull, hazy, or oxidized paint back to deep, glassy gloss',

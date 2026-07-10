@@ -8,8 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "nuxi generate && wrangler pages deploy .output/public",
-    "db:migrate": "wrangler d1 execute eddie-aps-db --file=./app/server/database/migrations/0000_fearless_mordo.sql",
+    "deploy": "nuxt build && wrangler pages deploy dist",
+    "db:migrate:local": "wrangler d1 execute eddie-aps-db --local --file=./app/server/database/migrations/0000_fearless_mordo.sql",
+    "db:migrate:remote": "wrangler d1 execute eddie-aps-db --remote --file=./app/server/database/migrations/0000_fearless_mordo.sql",
     "db:studio": "drizzle-kit studio",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"

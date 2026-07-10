@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
       category: 'Paint Protection',
       author: 'Eddie APS Detailing',
       date: 'June 18, 2026',
-      imageUrl: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/ceramic-coating.jpg',
       readTime: '5 min read'
     },
     {
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
       category: 'Interior Cleaning',
       author: 'Eddie APS Detailing',
       date: 'May 24, 2026',
-      imageUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/deep-interior.jpg',
       readTime: '4 min read'
     },
     {
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
       category: 'Detailing Advice',
       author: 'Eddie APS Detailing',
       date: 'April 10, 2026',
-      imageUrl: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/complete-detailing.jpg',
       readTime: '3 min read'
     },
     {
@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
       category: 'Vehicle Maintenance',
       author: 'Eddie APS Detailing',
       date: 'March 05, 2026',
-      imageUrl: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=800',
+      imageUrl: '/images/luxury-car.jpg',
       readTime: '6 min read'
     }
   ]

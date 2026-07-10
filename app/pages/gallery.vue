@@ -12,24 +12,24 @@ const staticGalleryItems = [
     title: 'Leather Seat Steam Restoration',
     type: 'slider',
     category: 'Interior',
-    before: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=800',
-    after: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800'
+    before: '/images/complete-detailing.jpg',
+    after: '/images/deep-interior.jpg'
   },
   {
     id: 2,
     title: 'Swirl Mark Paint Correction',
     type: 'slider',
     category: 'Paint Correction',
-    before: 'https://images.unsplash.com/photo-1520340356584-f9917d1ecc6f?auto=format&fit=crop&q=80&w=800',
-    after: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80&w=800'
+    before: '/images/paint-polishing.jpg',
+    after: '/images/exterior-detailing.jpg'
   },
   {
     id: 3,
     title: 'Hazy Headlight UV Restoration',
     type: 'slider',
     category: 'Headlights',
-    before: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=800',
-    after: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800'
+    before: '/images/headlight-restoration.jpg',
+    after: '/images/ceramic-coating.jpg'
   },
   // Standard detailing portfolio images
   {
@@ -37,35 +37,35 @@ const staticGalleryItems = [
     title: 'Deep Carpet Shampooing',
     type: 'image',
     category: 'Interior',
-    url: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&q=80&w=800'
+    url: '/images/engine-bay.jpg'
   },
   {
     id: 5,
     title: 'Ceramic Coating Reflection',
     type: 'image',
     category: 'Paint Correction',
-    url: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800'
+    url: '/images/ceramic-coating.jpg'
   },
   {
     id: 6,
     title: 'Engine Bay Grime Wash',
     type: 'image',
     category: 'Engine',
-    url: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=800'
+    url: '/images/luxury-car.jpg'
   },
   {
     id: 7,
     title: 'Alloy Wheel Iron Cleanse',
     type: 'image',
     category: 'Exterior',
-    url: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=800'
+    url: '/images/wheel-detail.jpg'
   },
   {
     id: 8,
     title: 'Door Card Deep Steam Clean',
     type: 'image',
     category: 'Interior',
-    url: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80&w=800'
+    url: '/images/exterior-detailing.jpg'
   }
 ]
 
