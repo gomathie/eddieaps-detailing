@@ -45,9 +45,9 @@ const { data: services } = await useFetch('/api/services', {
 
 // FAQ section list
 const faqs = ref([
-  {
+   {
     question: "Do you need access to water or electricity for mobile detailing?",
-    answer: "No! Our mobile detailing unit is fully equipped with an onboard water tank and generator, allowing us to perform full detailing anywhere—whether at your home, office, or an apartment parking lot.",
+    answer: "Yes. We require access to a working water source and a standard electrical outlet to perform our mobile detailing services. If you're unsure whether your location is suitable, feel free to contact us and we'll be happy to help.",
     isOpen: false
   },
   {
@@ -57,7 +57,7 @@ const faqs = ref([
   },
   {
     question: "How often should I get my vehicle detailed?",
-    answer: "We recommend a professional detail at least twice a year to preserve the vehicle's paint, seal the exterior surfaces against weather elements, and keep the interior clean, sanitized, and odor-free.",
+    answer: "We recommend a professional detail at once a month to preserve the vehicle's paint, seal the exterior surfaces against weather elements, and keep the interior clean, sanitized, and odor-free.",
     isOpen: false
   },
   {

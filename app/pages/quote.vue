@@ -93,7 +93,7 @@ const submitQuote = async () => {
         </div>
         <h2 class="text-2xl font-bold text-white">Quote Request Received!</h2>
         <p class="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-          Thank you, {{ form.customerName }}. Your request for a custom quote on your <strong>{{ form.vehicleYear }} {{ form.vehicleMake }} {{ form.vehicleModel }}</strong> has been logged. Our detailing specialist will review your details and photos, then email you an estimate within 1-2 hours.
+          Thank you, {{ form.customerName }}. Your request for a custom quote on your <strong>{{ form.vehicleYear }} {{ form.vehicleMake }} {{ form.vehicleModel }}</strong> has been logged. Our detailing specialist will review your details and photos, then email you an estimate soon.
         </p>
         <div class="pt-4">
           <NuxtLink to="/" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg transition-colors text-sm">
