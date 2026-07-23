@@ -98,9 +98,9 @@
       <!-- Copyright & Local Schema -->
       <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs gap-4">
         <p>© 2026 Eddie APS Detailing. All rights reserved.</p>
-        <p>Built with Vue 3 & Nuxt 3. Deployed on Cloudflare.</p>
+        <p>Built, and maintained by the Smooth Operators.</p>
         <div class="flex space-x-4">
-          <NuxtLink to="/admin/login" class="text-slate-650 hover:text-white transition-colors">Admin Portal</NuxtLink>
+          <NuxtLink to="/admin/login" class="text-slate-650 hover:text-white transition-colors">Progress Portal</NuxtLink>
         </div>
       </div>
     </div>
