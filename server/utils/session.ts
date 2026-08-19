@@ -99,13 +99,17 @@ export const setSessionCookie = async (event: H3Event, session: Omit<AdminSessio
 export const clearSessionCookie = (event: H3Event) =>
   deleteCookie(event, SESSION_COOKIE, { path: '/' })
 
-/** Returns the verified session, or null when the cookie is absent/forged/expired. */
-export const getSession = (event: H3Event) =>
+/**
+ * Returns the verified session, or null when the cookie is absent/forged/expired.
+ * Named `getAdminSession` rather than `getSession` so it does not shadow h3's
+ * auto-imported helper of that name.
+ */
+export const getAdminSession = (event: H3Event) =>
   readSessionToken(getCookie(event, SESSION_COOKIE))
 
 /** Throws 401 unless the request carries a valid admin session. */
 export const requireSession = async (event: H3Event) => {
-  const session = await getSession(event)
+  const session = await getAdminSession(event)
   if (!session) {
     throw createError({
       statusCode: 401,
