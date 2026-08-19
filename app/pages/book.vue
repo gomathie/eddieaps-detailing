@@ -83,14 +83,12 @@ const goToPrevStep = () => {
 // Custom file upload placeholder
 const uploadFiles = async (event: Event) => {
   const input = event.target as HTMLInputElement
-  if (!input.files || input.files.length === 0) return
-  
-  // Create static mock urls or send to R2 if DB connects
-  for (let i = 0; i < input.files.length; i++) {
-    const file = input.files[i]
+  if (!input.files) return
+
+  // Array.from keeps each entry typed as File; indexing a FileList yields File | undefined
+  for (const file of Array.from(input.files)) {
     // Generate object url for local display
-    const url = URL.createObjectURL(file)
-    form.value.imageUrls.push(url)
+    form.value.imageUrls.push(URL.createObjectURL(file))
   }
 }
 

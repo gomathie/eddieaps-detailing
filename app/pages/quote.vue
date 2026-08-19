@@ -46,12 +46,11 @@ const turnstileToken = ref('')
 
 const uploadFiles = async (event: Event) => {
   const input = event.target as HTMLInputElement
-  if (!input.files || input.files.length === 0) return
-  
-  for (let i = 0; i < input.files.length; i++) {
-    const file = input.files[i]
-    const url = URL.createObjectURL(file)
-    form.value.imageUrls.push(url)
+  if (!input.files) return
+
+  // Array.from keeps each entry typed as File; indexing a FileList yields File | undefined
+  for (const file of Array.from(input.files)) {
+    form.value.imageUrls.push(URL.createObjectURL(file))
   }
 }
 
