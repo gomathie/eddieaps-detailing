@@ -254,7 +254,11 @@ const { data: usersList, refresh: refreshUsers } = await useFetch('/api/admin/us
   default: (): AdminUser[] => [],
 })
 
+// superadmin is the env bootstrap account and is never assignable here
 const USER_ROLES = ['administrator', 'staff']
+
+const { data: me } = await useFetch('/api/auth/me', { lazy: true, default: () => null })
+const canManageUsers = computed(() => ['superadmin', 'administrator'].includes(me.value?.user?.role ?? ''))
 
 const blankUser = () => ({ id: 0, username: '', password: '', role: 'staff' })
 const userForm = ref(blankUser())
@@ -317,6 +321,15 @@ const logout = async () => {
           <h1 class="text-3xl font-extrabold text-white tracking-tight">Eddie APS Admin Portal</h1>
           <p class="text-xs text-slate-500 uppercase tracking-widest font-semibold mt-1">
             Real-time Bookings, Quotes, and Communications
+          </p>
+          <p v-if="me?.user" class="text-xs text-slate-400 mt-2">
+            Signed in as <span class="text-white font-bold">{{ me.user.username }}</span>
+            <span
+              class="ml-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded"
+              :class="me.user.role === 'superadmin'
+                ? 'bg-blue-500/15 text-blue-400'
+                : 'bg-slate-800 text-slate-400'"
+            >{{ me.user.role }}</span>
           </p>
         </div>
         <button
@@ -394,6 +407,7 @@ const logout = async () => {
           🔗 Social Links ({{ socialLinksList.length }})
         </button>
         <button
+          v-if="canManageUsers"
           @click="activeTab = 'users'"
           class="px-6 py-3 border-b-2 text-sm font-bold transition-colors"
           :class="[

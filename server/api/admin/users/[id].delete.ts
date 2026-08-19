@@ -25,12 +25,8 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 400, statusMessage: 'You cannot delete the account you are signed in with.' })
     }
 
-    // never leave the portal with no database account to sign in as
-    const remaining = await db.select({ id: users.id }).from(users)
-    if (remaining.length <= 1) {
-      throw createError({ statusCode: 400, statusMessage: 'At least one admin user must remain.' })
-    }
-
+    // no "keep one account" guard is needed: the superadmin lives in the
+    // environment secrets, so the portal stays reachable even with zero rows here
     await db.delete(users).where(eq(users.id, id))
     return { success: true, message: 'User deleted.' }
   } catch (error: any) {
