@@ -48,7 +48,7 @@ const closeMobileMenu = () => {
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-2.5" @click="closeMobileMenu">
-          <img src="/logo-dark.svg" alt="Eddie APS Detailing" class="h-12 sm:h-14 w-auto" >
+          <img src="/logo-wordmark-dark.svg" alt="Eddie APS Detailing" class="h-9 sm:h-10 w-auto" >
         </NuxtLink>
 
         <!-- Desktop Navigation -->

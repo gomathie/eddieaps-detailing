@@ -5,7 +5,7 @@
         <!-- Brand Info -->
         <div>
           <NuxtLink to="/" class="flex items-center gap-2.5 mb-4">
-            <img src="/logo-dark.svg" alt="Eddie APS Detailing" class="h-16 w-auto" >
+            <img src="/logo-wordmark-dark.svg" alt="Eddie APS Detailing" class="h-10 w-auto max-w-full" >
           </NuxtLink>
           <p class="text-sm leading-relaxed mb-6">
             Providing high-quality mobile and stationed auto detailing services. Restoring and protecting your vehicle's beauty wherever you are.
