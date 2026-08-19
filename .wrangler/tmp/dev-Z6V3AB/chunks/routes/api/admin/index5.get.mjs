@@ -1,0 +1,2 @@
+import{d as e,l as r,a as s,n as t,k as o,c as a,U as d}from"../../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const i=e(async e=>{await r(e,d);try{const r=s(e);return await r.select({id:t.id,username:t.username,role:t.role,createdAt:t.createdAt}).from(t).orderBy(o(t.id))}catch(e){throw console.error("Failed to list admin users:",e),a({statusCode:500,statusMessage:"Failed to load users."})}});export{i as default};
+//# sourceMappingURL=index5.get.mjs.map
