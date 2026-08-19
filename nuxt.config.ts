@@ -87,7 +87,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     turnstileSecretKey: process.env.TURNSTILE_SECRET_KEY,
     adminUsername: process.env.ADMIN_USERNAME,
-    adminPasswordHash: process.env.ADMIN_PASSWORD_HASH,
+    adminPassword: process.env.ADMIN_PASSWORD,
     jwtSecret: process.env.JWT_SECRET,
     r2BucketName: process.env.R2_BUCKET_NAME,
     resendApiKey: process.env.RESEND_API_KEY,

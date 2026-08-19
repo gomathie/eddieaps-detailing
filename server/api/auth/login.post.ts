@@ -41,12 +41,12 @@ export default defineEventHandler(async (event) => {
   // 2. The bootstrap superadmin from environment secrets. It exists only in the
   //    env, never in the database, and is who creates the site's admin accounts.
   const envUsername = config.adminUsername || 'admin'
-  const envPassword = config.adminPasswordHash
+  const envPassword = config.adminPassword
 
   if (!envPassword) {
     throw createError({
       statusCode: 503,
-      statusMessage: 'Admin login is not configured. Set the NUXT_ADMIN_PASSWORD_HASH secret.',
+      statusMessage: 'Admin login is not configured. Set the NUXT_ADMIN_PASSWORD secret.',
     })
   }
 

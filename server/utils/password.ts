@@ -69,7 +69,7 @@ const safeEqualString = (a: string, b: string) => {
 /**
  * Verifies the bootstrap superadmin password from the environment.
  *
- * The secret is named ADMIN_PASSWORD_HASH, so it accepts a real hash — bcrypt
+ * ADMIN_PASSWORD may hold a plaintext password or a real hash — bcrypt
  * (`$2a$`/`$2b$`/`$2y$`) or our own PBKDF2 format. A value that is neither is
  * treated as plaintext, which keeps older deployments working, but it means the
  * password sits in the environment in the clear: prefer a hash.
