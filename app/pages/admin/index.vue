@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { SocialLink, AdminUser } from '#shared/types'
 
 definePageMeta({
   layout: 'default',
@@ -198,6 +199,108 @@ const deleteMessage = async (id: number) => {
   }
 }
 
+// --- Social links ---
+const { data: socialLinksList, refresh: refreshSocialLinks } = await useFetch('/api/admin/social-links', {
+  lazy: true,
+  default: (): SocialLink[] => [],
+})
+
+const SOCIAL_PLATFORMS = ['facebook', 'instagram', 'tiktok', 'x', 'youtube', 'linkedin', 'whatsapp', 'website']
+
+const blankSocial = () => ({ id: 0, platform: 'facebook', label: '', url: '', sortOrder: 0, enabled: true })
+const socialForm = ref(blankSocial())
+const socialError = ref('')
+const socialSaving = ref(false)
+
+const editSocial = (link: SocialLink) => {
+  socialForm.value = { ...link }
+  socialError.value = ''
+}
+
+const resetSocialForm = () => {
+  socialForm.value = blankSocial()
+  socialError.value = ''
+}
+
+const saveSocial = async () => {
+  socialSaving.value = true
+  socialError.value = ''
+  const { id, ...payload } = socialForm.value
+  try {
+    if (id) await $fetch(`/api/admin/social-links/${id}`, { method: 'PUT', body: payload })
+    else await $fetch('/api/admin/social-links', { method: 'POST', body: payload })
+    resetSocialForm()
+    await refreshSocialLinks()
+  } catch (err: any) {
+    socialError.value = err?.data?.statusMessage || 'Could not save this link.'
+  } finally {
+    socialSaving.value = false
+  }
+}
+
+const deleteSocial = async (id: number) => {
+  if (!confirm('Delete this social link? It will disappear from the site footer.')) return
+  try {
+    await $fetch(`/api/admin/social-links/${id}`, { method: 'DELETE' })
+    await refreshSocialLinks()
+  } catch (err: any) {
+    socialError.value = err?.data?.statusMessage || 'Could not delete this link.'
+  }
+}
+
+// --- Admin users ---
+const { data: usersList, refresh: refreshUsers } = await useFetch('/api/admin/users', {
+  lazy: true,
+  default: (): AdminUser[] => [],
+})
+
+const USER_ROLES = ['administrator', 'staff']
+
+const blankUser = () => ({ id: 0, username: '', password: '', role: 'staff' })
+const userForm = ref(blankUser())
+const userError = ref('')
+const userSaving = ref(false)
+
+const editUser = (user: AdminUser) => {
+  // password stays blank on edit; sending it empty leaves the existing one alone
+  userForm.value = { id: user.id, username: user.username, password: '', role: user.role }
+  userError.value = ''
+}
+
+const resetUserForm = () => {
+  userForm.value = blankUser()
+  userError.value = ''
+}
+
+const saveUser = async () => {
+  userSaving.value = true
+  userError.value = ''
+  const { id, ...payload } = userForm.value
+  try {
+    if (id) await $fetch(`/api/admin/users/${id}`, { method: 'PUT', body: payload })
+    else await $fetch('/api/admin/users', { method: 'POST', body: payload })
+    resetUserForm()
+    await refreshUsers()
+  } catch (err: any) {
+    userError.value = err?.data?.statusMessage || 'Could not save this user.'
+  } finally {
+    userSaving.value = false
+  }
+}
+
+const deleteUser = async (id: number) => {
+  if (!confirm('Delete this admin user? They will lose portal access immediately.')) return
+  try {
+    await $fetch(`/api/admin/users/${id}`, { method: 'DELETE' })
+    await refreshUsers()
+  } catch (err: any) {
+    userError.value = err?.data?.statusMessage || 'Could not delete this user.'
+  }
+}
+
+// the search/filter/export toolbar only applies to submitted form data
+const isSubmissionsTab = computed(() => ['bookings', 'quotes', 'messages'].includes(activeTab.value))
+
 const logout = async () => {
   await $fetch('/api/auth/logout', { method: 'POST' })
   navigateTo('/admin/login')
@@ -279,10 +382,32 @@ const logout = async () => {
         >
           ✉ Messages ({{ messagesList.length }})
         </button>
+        <button
+          @click="activeTab = 'socials'"
+          class="px-6 py-3 border-b-2 text-sm font-bold transition-colors"
+          :class="[
+            activeTab === 'socials'
+              ? 'border-blue-500 text-white'
+              : 'border-transparent text-slate-500 hover:text-slate-300'
+          ]"
+        >
+          🔗 Social Links ({{ socialLinksList.length }})
+        </button>
+        <button
+          @click="activeTab = 'users'"
+          class="px-6 py-3 border-b-2 text-sm font-bold transition-colors"
+          :class="[
+            activeTab === 'users'
+              ? 'border-blue-500 text-white'
+              : 'border-transparent text-slate-500 hover:text-slate-300'
+          ]"
+        >
+          👤 Users ({{ usersList.length }})
+        </button>
       </div>
 
       <!-- Toolbar: search, status filter, export -->
-      <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
+      <div v-if="isSubmissionsTab" class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
         <div class="flex flex-1 gap-3">
           <input
             v-model="searchQuery"
@@ -498,6 +623,237 @@ const logout = async () => {
 
         <div v-if="!filteredMessages.length" class="text-center py-20 text-slate-500">
           {{ messagesList.length ? 'No messages match your search.' : 'No message inbox history.' }}
+        </div>
+      </div>
+
+      <!-- Social Links -->
+      <div v-if="activeTab === 'socials'" class="grid gap-8 lg:grid-cols-[22rem_1fr] items-start">
+        <!-- Add / edit form -->
+        <form
+          class="bg-slate-900 border border-slate-850 rounded-xl p-6 space-y-4"
+          @submit.prevent="saveSocial"
+        >
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">
+            {{ socialForm.id ? 'Edit Link' : 'Add Social Link' }}
+          </h3>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Platform</label>
+            <select
+              v-model="socialForm.platform"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+            >
+              <option v-for="p in SOCIAL_PLATFORMS" :key="p" :value="p">{{ p }}</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Label</label>
+            <input
+              v-model="socialForm.label"
+              type="text"
+              required
+              placeholder="Eddie APS on Facebook"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">URL</label>
+            <input
+              v-model="socialForm.url"
+              type="url"
+              required
+              placeholder="https://facebook.com/eddieaps"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Order</label>
+              <input
+                v-model.number="socialForm.sortOrder"
+                type="number"
+                class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+              >
+            </div>
+            <label class="flex items-end gap-2 pb-2.5 text-sm text-slate-300">
+              <input v-model="socialForm.enabled" type="checkbox" class="w-4 h-4 accent-blue-600">
+              Visible
+            </label>
+          </div>
+
+          <p v-if="socialError" class="text-xs text-rose-400">{{ socialError }}</p>
+
+          <div class="flex gap-3 pt-1">
+            <button
+              type="submit"
+              :disabled="socialSaving"
+              class="flex-1 px-4 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 rounded-lg transition-colors"
+            >
+              {{ socialSaving ? 'Saving…' : socialForm.id ? 'Update Link' : 'Add Link' }}
+            </button>
+            <button
+              v-if="socialForm.id"
+              type="button"
+              class="px-4 py-2.5 text-xs font-bold text-slate-400 hover:text-white border border-slate-800 rounded-lg transition-colors"
+              @click="resetSocialForm"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <!-- Existing links -->
+        <div class="space-y-4">
+          <div
+            v-for="link in socialLinksList"
+            :key="link.id"
+            class="bg-slate-900 border border-slate-850 rounded-xl p-5 flex flex-wrap items-center gap-4"
+          >
+            <div class="w-9 h-9 rounded-full bg-slate-950 flex items-center justify-center text-slate-300 flex-shrink-0">
+              <SocialIcon :platform="link.platform" />
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold text-white flex items-center gap-2">
+                {{ link.label }}
+                <span
+                  v-if="!link.enabled"
+                  class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-800 rounded"
+                >Hidden</span>
+              </div>
+              <a
+                :href="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-slate-500 hover:text-blue-400 break-all"
+              >{{ link.url }}</a>
+            </div>
+            <div class="flex gap-2">
+              <button
+                class="px-4 py-2 text-xs font-bold text-slate-300 hover:text-white border border-slate-800 rounded-lg transition-colors"
+                @click="editSocial(link)"
+              >
+                Edit
+              </button>
+              <button
+                class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 rounded-lg transition-colors"
+                @click="deleteSocial(link.id)"
+              >
+                🗑
+              </button>
+            </div>
+          </div>
+
+          <div v-if="!socialLinksList.length" class="text-center py-20 text-slate-500">
+            No social links yet. Add one and it appears in the site footer.
+          </div>
+        </div>
+      </div>
+
+      <!-- Users -->
+      <div v-if="activeTab === 'users'" class="grid gap-8 lg:grid-cols-[22rem_1fr] items-start">
+        <!-- Add / edit form -->
+        <form
+          class="bg-slate-900 border border-slate-850 rounded-xl p-6 space-y-4"
+          @submit.prevent="saveUser"
+        >
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">
+            {{ userForm.id ? 'Edit User' : 'Add New User' }}
+          </h3>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
+            <input
+              v-model="userForm.username"
+              type="text"
+              required
+              autocomplete="off"
+              placeholder="kwame"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+              Password
+              <span v-if="userForm.id" class="text-slate-600 normal-case font-medium">(leave blank to keep)</span>
+            </label>
+            <input
+              v-model="userForm.password"
+              type="password"
+              autocomplete="new-password"
+              :required="!userForm.id"
+              placeholder="At least 10 characters"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Role</label>
+            <select
+              v-model="userForm.role"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+            >
+              <option v-for="r in USER_ROLES" :key="r" :value="r">{{ r }}</option>
+            </select>
+          </div>
+
+          <p v-if="userError" class="text-xs text-rose-400">{{ userError }}</p>
+
+          <div class="flex gap-3 pt-1">
+            <button
+              type="submit"
+              :disabled="userSaving"
+              class="flex-1 px-4 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 rounded-lg transition-colors"
+            >
+              {{ userSaving ? 'Saving…' : userForm.id ? 'Update User' : 'Create User' }}
+            </button>
+            <button
+              v-if="userForm.id"
+              type="button"
+              class="px-4 py-2.5 text-xs font-bold text-slate-400 hover:text-white border border-slate-800 rounded-lg transition-colors"
+              @click="resetUserForm"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <!-- Existing users -->
+        <div class="space-y-4">
+          <div
+            v-for="user in usersList"
+            :key="user.id"
+            class="bg-slate-900 border border-slate-850 rounded-xl p-5 flex flex-wrap items-center gap-4"
+          >
+            <div class="w-9 h-9 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center font-black flex-shrink-0">
+              {{ user.username.charAt(0).toUpperCase() }}
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold text-white">{{ user.username }}</div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">{{ user.role }}</div>
+            </div>
+            <div class="flex gap-2">
+              <button
+                class="px-4 py-2 text-xs font-bold text-slate-300 hover:text-white border border-slate-800 rounded-lg transition-colors"
+                @click="editUser(user)"
+              >
+                Edit
+              </button>
+              <button
+                class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 rounded-lg transition-colors"
+                @click="deleteUser(user.id)"
+              >
+                🗑
+              </button>
+            </div>
+          </div>
+
+          <div v-if="!usersList.length" class="text-center py-20 text-slate-500">
+            No portal users yet. You are signed in with the credentials from the environment secrets — add a user here to manage access from the database.
+          </div>
         </div>
       </div>
 

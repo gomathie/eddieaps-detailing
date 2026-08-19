@@ -9,8 +9,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "eddie-aps-db",
-      "database_id": "4f6ff7c2-90c9-4685-bc63-7de13c89740a",
+      "database_name": "eddieaps-detailing-db",
+      "database_id": "1c141cc1-81ce-438e-b935-8061dfb5a52b",
       "migrations_dir": "server/database/migrations"
     }
   ]

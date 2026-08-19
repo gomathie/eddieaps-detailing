@@ -15,7 +15,9 @@ const toBase64 = (bytes: Uint8Array) => btoa(String.fromCharCode(...bytes))
 const fromBase64 = (value: string) =>
   Uint8Array.from(atob(value), char => char.charCodeAt(0))
 
-const derive = async (password: string, salt: Uint8Array, iterations: number) => {
+// Uint8Array<ArrayBuffer>, not the default Uint8Array<ArrayBufferLike>: WebCrypto
+// takes a BufferSource, which excludes SharedArrayBuffer-backed views.
+const derive = async (password: string, salt: Uint8Array<ArrayBuffer>, iterations: number) => {
   const key = await crypto.subtle.importKey(
     'raw',
     new TextEncoder().encode(password),

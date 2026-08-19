@@ -2,7 +2,11 @@
 import type { SocialLink } from '#shared/types'
 
 // Managed from the admin portal; the footer stays empty until links are added.
+// server:false keeps this out of the prerender payload — most routes are
+// prerendered without D1 access, and a baked-in empty array would be reused on
+// hydration, so newly added links would never show up.
 const { data: socials } = await useFetch('/api/social-links', {
+  server: false,
   lazy: true,
   default: (): SocialLink[] => [],
 })
