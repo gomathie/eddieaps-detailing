@@ -1,2 +1,0 @@
-import{d as s,j as e,f as t,a,s as o,c as r}from"../../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const i=s(async s=>{const i=e(await t(s));try{const e=a(s),[t]=await e.insert(o).values(i).returning();return{success:!0,message:"Social link added.",link:t}}catch(s){throw console.error("Failed to create social link:",s),r({statusCode:500,statusMessage:"Failed to save the social link."})}});export{i as default};
-//# sourceMappingURL=index.post.mjs.map

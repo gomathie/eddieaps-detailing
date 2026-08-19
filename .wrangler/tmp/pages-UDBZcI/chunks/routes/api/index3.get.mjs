@@ -1,2 +1,0 @@
-import{d as r,a as e,s as o,e as t,k as s}from"../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const a=r(async r=>{try{const a=e(r);return await a.select().from(o).where(t(o.enabled,!0)).orderBy(s(o.sortOrder),s(o.id))}catch(r){return console.warn("Failed to read social links from D1. Serving an empty list.",r),[]}});export{a as default};
-//# sourceMappingURL=index3.get.mjs.map
