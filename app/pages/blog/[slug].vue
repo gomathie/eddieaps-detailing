@@ -69,8 +69,8 @@ const postSummary = () => {
   const p = post.value
   if (!p) return 'Expert car care advice from Eddie APS Detailing.'
   if (p.excerpt) return p.excerpt
-  const firstParagraph = String(p.content ?? '').match(/<p[^>]*>([sS]*?)</p>/)?.[1] ?? ''
-  const text = firstParagraph.replace(/<[^>]+>/g, '').replace(/s+/g, ' ').trim()
+  const firstParagraph = String(p.content ?? '').match(/<p[^>]*>([^]*?)<\/p>/)?.[1] ?? ''
+  const text = firstParagraph.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
   return text.length > 200 ? `${text.slice(0, 197).trimEnd()}...` : text
 }
 
