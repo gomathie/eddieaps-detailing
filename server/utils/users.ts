@@ -1,3 +1,8 @@
+/**
+ * Roles assignable to database accounts. `superadmin` is deliberately absent:
+ * it belongs solely to the bootstrap account in the environment secrets, so it
+ * cannot be granted — or escalated to — through the portal.
+ */
 export const USER_ROLES = ['administrator', 'staff'] as const
 
 export type UserRole = typeof USER_ROLES[number]

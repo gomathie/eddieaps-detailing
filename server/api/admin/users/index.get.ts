@@ -1,8 +1,11 @@
 import { asc } from 'drizzle-orm'
 import { useDb } from '~~/server/utils/db'
 import { users } from '~~/server/database/schema'
+import { requireRole, USER_MANAGEMENT_ROLES } from '~~/server/utils/session'
 
 export default defineEventHandler(async (event) => {
+  await requireRole(event, USER_MANAGEMENT_ROLES)
+
   try {
     const db = useDb(event)
     // password hashes are never sent to the client

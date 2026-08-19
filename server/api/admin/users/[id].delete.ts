@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { useDb } from '~~/server/utils/db'
 import { users } from '~~/server/database/schema'
-import { requireSession } from '~~/server/utils/session'
+import { requireRole, USER_MANAGEMENT_ROLES } from '~~/server/utils/session'
 
 export default defineEventHandler(async (event) => {
   const id = Number(getRouterParam(event, 'id'))
@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid user identification.' })
   }
 
-  const session = await requireSession(event)
+  const session = await requireRole(event, USER_MANAGEMENT_ROLES)
 
   try {
     const db = useDb(event)

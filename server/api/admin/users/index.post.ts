@@ -3,8 +3,11 @@ import { useDb } from '~~/server/utils/db'
 import { users } from '~~/server/database/schema'
 import { hashPassword } from '~~/server/utils/password'
 import { readUserInput } from '~~/server/utils/users'
+import { requireRole, USER_MANAGEMENT_ROLES } from '~~/server/utils/session'
 
 export default defineEventHandler(async (event) => {
+  await requireRole(event, USER_MANAGEMENT_ROLES)
+
   const { username, password, role } = readUserInput(await readBody(event), { requirePassword: true })
 
   try {
