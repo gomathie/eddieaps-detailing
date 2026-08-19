@@ -1,17 +1,10 @@
-import { getCookie } from 'h3'
+import { requireSession } from '~~/server/utils/session'
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const url = event.node.req.url || ''
-  
-  // Apply authentication check to all routes starting with /api/admin/
+
+  // Every /api/admin/ route requires a signed, unexpired admin session.
   if (url.startsWith('/api/admin')) {
-    const session = getCookie(event, 'admin_session')
-    
-    if (session !== 'authenticated') {
-      throw createError({
-        statusCode: 401,
-        statusMessage: 'Unauthorized. Administrative session is missing or expired.'
-      })
-    }
+    await requireSession(event)
   }
 })

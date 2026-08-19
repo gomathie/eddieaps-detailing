@@ -1,14 +1,6 @@
-import { getCookie } from 'h3'
+import { requireSession } from '~~/server/utils/session'
 
-export default defineEventHandler((event) => {
-  const session = getCookie(event, 'admin_session')
-  
-  if (session === 'authenticated') {
-    return { authenticated: true, user: { username: 'admin', role: 'administrator' } }
-  }
-  
-  throw createError({
-    statusCode: 401,
-    statusMessage: 'Unauthorized. Please sign in.'
-  })
+export default defineEventHandler(async (event) => {
+  const session = await requireSession(event)
+  return { authenticated: true, user: { username: session.username, role: session.role } }
 })

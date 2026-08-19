@@ -147,7 +147,7 @@ const contactMethods = [
                     type="tel"
                     required
                     class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:border-blue-500 outline-none transition"
-                    placeholder="0591357411"
+                    placeholder="0595118973"
                   >
                 </div>
               </div>

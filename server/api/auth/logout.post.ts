@@ -1,6 +1,6 @@
-import { deleteCookie } from 'h3'
+import { clearSessionCookie } from '~~/server/utils/session'
 
 export default defineEventHandler((event) => {
-  deleteCookie(event, 'admin_session', { path: '/' })
+  clearSessionCookie(event)
   return { success: true, message: 'Logged out.' }
 })

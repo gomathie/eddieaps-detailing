@@ -107,3 +107,15 @@ export const messages = sqliteTable('messages', {
   status: text('status').notNull().default('unread'), // unread, read, archived
   createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
+
+// Social Links (managed from the admin portal, rendered in the footer)
+export const socialLinks = sqliteTable('social_links', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  platform: text('platform').notNull(), // facebook, instagram, tiktok, x, youtube, linkedin, whatsapp
+  label: text('label').notNull(), // accessible link label
+  url: text('url').notNull(),
+  sortOrder: integer('sort_order').notNull().default(0),
+  enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true),
+  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+})

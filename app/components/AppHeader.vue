@@ -67,13 +67,13 @@ const closeMobileMenu = () => {
         <!-- Desktop Call To Actions -->
         <div class="hidden lg:flex items-center space-x-4">
           <a
-            href="tel:0591357411"
+            href="tel:0595118973"
             class="text-sm font-medium text-slate-300 hover:text-white transition-colors flex items-center gap-1.5"
           >
             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            0591357411
+            0595118973
           </a>
           <NuxtLink
             to="/quote"
@@ -146,13 +146,13 @@ const closeMobileMenu = () => {
           </NuxtLink>
           <div class="pt-4 px-3 flex flex-col space-y-3">
             <a
-              href="tel:0591357411"
+              href="tel:0595118973"
               class="flex items-center justify-center gap-2 text-slate-300 py-2.5 font-medium border border-slate-800 rounded-lg hover:text-white"
             >
               <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              Call 0591357411
+              Call 0595118973
             </a>
             <NuxtLink
               to="/quote"

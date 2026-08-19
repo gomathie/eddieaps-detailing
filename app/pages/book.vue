@@ -204,7 +204,7 @@ const submitBooking = async () => {
                 v-model="form.customerPhone"
                 type="tel"
                 required
-                placeholder="0591357411"
+                placeholder="0595118973"
                 class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>

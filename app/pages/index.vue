@@ -153,7 +153,7 @@ const submitContactForm = async () => {
             Get Free Quote
           </NuxtLink>
           <a
-            href="tel:0591357411"
+            href="tel:0595118973"
             class="w-full sm:w-auto px-8 py-4 bg-transparent text-slate-300 hover:text-white font-bold transition-all duration-200 text-base flex items-center justify-center gap-2"
           >
             <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -509,8 +509,8 @@ const submitContactForm = async () => {
                 </div>
                 <div>
                   <div class="font-bold text-white">Call Us</div>
-                  <a href="tel:0591357411" class="hover:text-blue-400 transition-colors">0591357411</a> / 
-                  <a href="tel:0595118973" class="hover:text-blue-400 transition-colors">0595118973</a>
+                  <a href="tel:0595118973" class="hover:text-blue-400 transition-colors">0595118973</a> / 
+                  <a href="tel:0591357411" class="hover:text-blue-400 transition-colors">0591357411</a>
                 </div>
               </div>
               <div class="flex items-center space-x-4">
@@ -559,7 +559,7 @@ const submitContactForm = async () => {
                     v-model="contactForm.phone"
                     type="tel"
                     required
-                    placeholder="0591357411"
+                    placeholder="0595118973"
                     class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
