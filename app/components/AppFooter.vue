@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { SocialLink } from '#shared/types'
+
 // Managed from the admin portal; the footer stays empty until links are added.
 const { data: socials } = await useFetch('/api/social-links', {
   lazy: true,
-  default: () => [],
+  default: (): SocialLink[] => [],
 })
 </script>
 

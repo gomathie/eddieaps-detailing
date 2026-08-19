@@ -3,6 +3,24 @@ export interface ServiceFaq {
   a: string
 }
 
+/** An admin portal account. The password hash is never sent to the client. */
+export interface AdminUser {
+  id: number
+  username: string
+  role: string
+  createdAt: string | Date | null
+}
+
+/** A social link as rendered by the footer. */
+export interface SocialLink {
+  id: number
+  platform: string
+  label: string
+  url: string
+  sortOrder: number
+  enabled: boolean
+}
+
 /**
  * The shape a service detail page renders. Both the API's static fallback
  * catalog and the page's own offline catalog conform to this, so the two
