@@ -1,3 +1,11 @@
+<script setup lang="ts">
+// Managed from the admin portal; the footer stays empty until links are added.
+const { data: socials } = await useFetch('/api/social-links', {
+  lazy: true,
+  default: () => [],
+})
+</script>
+
 <template>
   <footer class="bg-slate-950 text-slate-400 border-t border-slate-900 pt-16 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
