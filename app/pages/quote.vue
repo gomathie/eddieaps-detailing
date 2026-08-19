@@ -1,4 +1,9 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Request A Free Custom Quote',
+  description: 'Tell us about your vehicle and the condition it is in, and we will send back a tailored detailing quote at no cost.',
+})
+
 import { ref } from 'vue'
 
 const form = ref({

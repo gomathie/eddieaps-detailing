@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
+usePageSeo({
   title: 'About Us',
   description: 'Learn about Eddie APS Detailing - our mission, vision, and commitment to exceptional auto detailing services.',
 })

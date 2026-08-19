@@ -1,4 +1,9 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Detailing Portfolio Gallery',
+  description: 'See the results we have achieved for our clients. Browse before/after sliders and high-resolution detailing photos.',
+})
+
 import { ref, computed } from 'vue'
 
 const categories = ['All', 'Interior', 'Exterior', 'Paint Correction', 'Engine', 'Headlights']

@@ -63,6 +63,23 @@ const { data: post } = await useFetch(`/api/blog/${slug.value}`, {
   lazy: true,
   default: () => staticPostsCatalog[slug.value] || staticPostsCatalog['ceramic-coating-benefits']
 })
+
+// the static fallbacks carry no excerpt, so fall back to the article's opening paragraph
+const postSummary = () => {
+  const p = post.value
+  if (!p) return 'Expert car care advice from Eddie APS Detailing.'
+  if (p.excerpt) return p.excerpt
+  const firstParagraph = String(p.content ?? '').match(/<p[^>]*>([sS]*?)</p>/)?.[1] ?? ''
+  const text = firstParagraph.replace(/<[^>]+>/g, '').replace(/s+/g, ' ').trim()
+  return text.length > 200 ? `${text.slice(0, 197).trimEnd()}...` : text
+}
+
+usePageSeo({
+  title: () => post.value?.title ?? 'Article',
+  description: postSummary,
+  image: () => post.value?.imageUrl,
+  type: 'article',
+})
 </script>
 
 <template>

@@ -1,4 +1,9 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Our Detailing Packages',
+  description: 'From a basic refresh to extensive paint correction, we offer premium mobile and stationed services for every vehicle class.',
+})
+
 const staticServices = [
   {
     slug: 'complete-detailing',

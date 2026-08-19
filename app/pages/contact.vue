@@ -8,7 +8,7 @@ const whatsappNumberSecondary = config.public.whatsappNumberSecondary
 // wa.me needs the international form: drop the leading 0, prefix Ghana's 233
 const waLink = (n: string) => `https://wa.me/${n.replace(/^0/, '233')}`
 
-useSeoMeta({
+usePageSeo({
   title: 'Contact Us',
   description: 'Get in touch with Eddie APS Detailing. Call, WhatsApp, or send us a message to book your mobile or stationed auto detailing service.',
 })

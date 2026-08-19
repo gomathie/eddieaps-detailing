@@ -118,6 +118,12 @@ const { data: service } = await useFetch(`/api/services/${slug.value}`, {
   lazy: true,
   default: () => staticCatalog[slug.value] || staticCatalog['complete-detailing']
 })
+
+usePageSeo({
+  title: () => service.value?.name ?? 'Detailing Service',
+  description: () => service.value?.description ?? 'Premium mobile and stationed auto detailing by Eddie APS Detailing.',
+  image: () => service.value?.imageUrl,
+})
 </script>
 
 <template>

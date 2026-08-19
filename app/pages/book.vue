@@ -1,4 +1,9 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Book Your Detailing Session',
+  description: 'Reserve a mobile or stationed detailing slot with Eddie APS Detailing. Pick your service, date, and location in a couple of minutes.',
+})
+
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 

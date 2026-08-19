@@ -1,4 +1,9 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Detailing Advice & Tips',
+  description: 'Expert articles on how to clean, protect, and maintain your vehicle in pristine condition.',
+})
+
 import { ref, computed } from 'vue'
 
 const searchQuery = ref('')

@@ -20,7 +20,9 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en' },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Eddie APS Detailing | Professional Mobile & Stationed Auto Detailing',
+      // pages set a short title; the template appends the brand
+      title: 'Professional Mobile & Stationed Auto Detailing',
+      titleTemplate: '%s | Eddie APS Detailing',
       meta: [
         { name: 'description', content: 'Premium mobile and stationed auto detailing services. Restore your vehicle\'s shine with expert care, convenience, and eco-friendly products.' },
         { name: 'theme-color', content: '#1e40af' },

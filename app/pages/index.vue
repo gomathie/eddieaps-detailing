@@ -1,4 +1,9 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Professional Mobile & Stationed Auto Detailing',
+  description: 'Premium mobile and stationed auto detailing in Ghana. Interior deep cleans, paint polishing, ceramic coating and headlight restoration, brought to you or done at our facility.',
+})
+
 import { ref } from 'vue'
 
 // Local static fallback data for services
