@@ -9,8 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "deploy": "nuxt build && wrangler pages deploy dist --project-name eddieaps-detailing --branch main --commit-dirty=true",
-    "db:migrate:local": "wrangler d1 migrations apply eddieaps-detailing-db --local",
-    "db:migrate:remote": "wrangler d1 migrations apply eddieaps-detailing-db --remote",
+    "db:migrate:local": "wrangler d1 migrations apply eddie-aps-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply eddie-aps-db --remote",
     "db:studio": "drizzle-kit studio",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"
