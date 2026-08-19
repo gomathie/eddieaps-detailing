@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { useDb } from '~~/server/utils/db'
 import { users } from '~~/server/database/schema'
-import { verifyPassword, isHashed } from '~~/server/utils/password'
+import { verifyPassword, isHashed, verifyEnvPassword } from '~~/server/utils/password'
 import { setSessionCookie, SUPERADMIN_ROLE } from '~~/server/utils/session'
 
 // Constant-time string comparison to avoid leaking timing information.
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (safeEqual(username, envUsername) && safeEqual(password, envPassword)) {
+  if (safeEqual(username, envUsername) && await verifyEnvPassword(password, envPassword)) {
     await setSessionCookie(event, { username: envUsername, role: SUPERADMIN_ROLE })
     return { success: true, user: { username: envUsername, role: SUPERADMIN_ROLE } }
   }

@@ -57,3 +57,35 @@ export const verifyPassword = async (password: string, stored: string) => {
 
 /** True when a stored value is in the hashed format rather than legacy plaintext. */
 export const isHashed = (stored: string) => stored.startsWith(`${PREFIX}$`)
+
+/** Constant-time comparison for the legacy plaintext case. */
+const safeEqualString = (a: string, b: string) => {
+  if (a.length !== b.length) return false
+  let mismatch = 0
+  for (let i = 0; i < a.length; i++) mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i)
+  return mismatch === 0
+}
+
+/**
+ * Verifies the bootstrap superadmin password from the environment.
+ *
+ * The secret is named ADMIN_PASSWORD_HASH, so it accepts a real hash — bcrypt
+ * (`$2a$`/`$2b$`/`$2y$`) or our own PBKDF2 format. A value that is neither is
+ * treated as plaintext, which keeps older deployments working, but it means the
+ * password sits in the environment in the clear: prefer a hash.
+ */
+export const verifyEnvPassword = async (password: string, stored: string) => {
+  if (isHashed(stored)) return verifyPassword(password, stored)
+
+  if (/^\$2[aby]\$/.test(stored)) {
+    // bcryptjs is pure JS, so this works on Workers where native bcrypt does not
+    const bcrypt = await import('bcryptjs')
+    return bcrypt.compare(password, stored)
+  }
+
+  return safeEqualString(password, stored)
+}
+
+/** True when the configured secret is a hash rather than a plaintext password. */
+export const isEnvPasswordHashed = (stored: string) =>
+  isHashed(stored) || /^\$2[aby]\$/.test(stored)
