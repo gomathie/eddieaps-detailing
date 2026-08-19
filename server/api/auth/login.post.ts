@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { useDb } from '~~/server/utils/db'
 import { users } from '~~/server/database/schema'
 import { verifyPassword, isHashed } from '~~/server/utils/password'
-import { setSessionCookie } from '~~/server/utils/session'
+import { setSessionCookie, SUPERADMIN_ROLE } from '~~/server/utils/session'
 
 // Constant-time string comparison to avoid leaking timing information.
 const safeEqual = (a: string, b: string) => {
@@ -38,8 +38,8 @@ export default defineEventHandler(async (event) => {
     console.warn('Could not check D1 for admin users. Falling back to the env credentials.', error)
   }
 
-  // 2. The bootstrap account from environment secrets, so the portal is still
-  //    reachable before any user rows exist.
+  // 2. The bootstrap superadmin from environment secrets. It exists only in the
+  //    env, never in the database, and is who creates the site's admin accounts.
   const envUsername = config.adminUsername || 'admin'
   const envPassword = config.adminPasswordHash
 
@@ -51,8 +51,8 @@ export default defineEventHandler(async (event) => {
   }
 
   if (safeEqual(username, envUsername) && safeEqual(password, envPassword)) {
-    await setSessionCookie(event, { username: envUsername, role: 'administrator' })
-    return { success: true, user: { username: envUsername, role: 'administrator' } }
+    await setSessionCookie(event, { username: envUsername, role: SUPERADMIN_ROLE })
+    return { success: true, user: { username: envUsername, role: SUPERADMIN_ROLE } }
   }
 
   throw createError({ statusCode: 401, statusMessage: 'Invalid admin credentials.' })

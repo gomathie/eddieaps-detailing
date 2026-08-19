@@ -114,3 +114,24 @@ export const requireSession = async (event: H3Event) => {
   }
   return session
 }
+
+/**
+ * The bootstrap account from environment secrets. It is the only superadmin and
+ * cannot be created through the portal, so there is always exactly one.
+ */
+export const SUPERADMIN_ROLE = 'superadmin'
+
+/** Roles allowed to create, edit and delete portal accounts. */
+export const USER_MANAGEMENT_ROLES = [SUPERADMIN_ROLE, 'administrator']
+
+/** Throws 403 when the signed-in account's role is not in `roles`. */
+export const requireRole = async (event: H3Event, roles: string[]) => {
+  const session = await requireSession(event)
+  if (!roles.includes(session.role)) {
+    throw createError({
+      statusCode: 403,
+      statusMessage: 'Your account does not have permission to do that.',
+    })
+  }
+  return session
+}
