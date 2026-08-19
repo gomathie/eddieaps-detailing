@@ -93,9 +93,10 @@ export default defineNuxtConfig({
     public: {
       turnstileSiteKey: process.env.TURNSTILE_SITE_KEY,
       siteUrl: 'https://eddieapsdetailing.com',
-      phonePrimary: '0595118973',
-      phoneSecondary: '0591357411',
-      whatsappNumber: '0595118973',
+      phonePrimary: '0591357411',
+      phoneSecondary: '0595118973',
+      whatsappNumber: '0591357411',
+      whatsappNumberSecondary: '0595118973',
     },
   },
 

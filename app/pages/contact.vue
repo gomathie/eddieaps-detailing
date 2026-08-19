@@ -3,6 +3,10 @@ const config = useRuntimeConfig()
 const phonePrimary = config.public.phonePrimary
 const phoneSecondary = config.public.phoneSecondary
 const whatsappNumber = config.public.whatsappNumber
+const whatsappNumberSecondary = config.public.whatsappNumberSecondary
+
+// wa.me needs the international form: drop the leading 0, prefix Ghana's 233
+const waLink = (n: string) => `https://wa.me/${n.replace(/^0/, '233')}`
 
 useSeoMeta({
   title: 'Contact Us',
@@ -40,9 +44,10 @@ const submit = async () => {
 }
 
 const contactMethods = [
-  { icon: 'i-heroicons-phone', label: 'Call Primary', value: phonePrimary, href: `tel:${phonePrimary}` },
+  { icon: 'i-heroicons-phone', label: 'Call Main', value: phonePrimary, href: `tel:${phonePrimary}` },
   { icon: 'i-heroicons-phone', label: 'Call Secondary', value: phoneSecondary, href: `tel:${phoneSecondary}` },
-  { icon: 'i-heroicons-chat-bubble-left-right', label: 'WhatsApp', value: whatsappNumber, href: `https://wa.me/${whatsappNumber.replace(/^0/, '233')}` },
+  { icon: 'i-heroicons-chat-bubble-left-right', label: 'WhatsApp (Main)', value: whatsappNumber, href: waLink(whatsappNumber) },
+  { icon: 'i-heroicons-chat-bubble-left-right', label: 'WhatsApp (Secondary)', value: whatsappNumberSecondary, href: waLink(whatsappNumberSecondary) },
   { icon: 'i-heroicons-envelope', label: 'Email', value: 'info@eddieapsdetailing.com', href: 'mailto:info@eddieapsdetailing.com' },
 ]
 </script>
@@ -142,7 +147,7 @@ const contactMethods = [
                     type="tel"
                     required
                     class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:border-blue-500 outline-none transition"
-                    placeholder="0595118973"
+                    placeholder="0591357411"
                   >
                 </div>
               </div>

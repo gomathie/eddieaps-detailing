@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 
 const isHovered = ref(false)
-const whatsappNumber = '0595118973'
+const config = useRuntimeConfig()
+// wa.me needs the international form: drop the leading 0, prefix Ghana's 233
+const whatsappNumber = config.public.whatsappNumber.replace(/^0/, '233')
 const defaultMessage = encodeURIComponent("Hello Eddie APS Detailing! I'm interested in booking a car detailing service.")
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${defaultMessage}`
 </script>

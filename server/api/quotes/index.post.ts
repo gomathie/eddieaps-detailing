@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
     console.error('Failed to save quote request to D1 database:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to save quote request. Please contact us directly at 0595118973.'
+      statusMessage: 'Failed to save quote request. Please contact us directly at 0591357411.'
     })
   }
 })

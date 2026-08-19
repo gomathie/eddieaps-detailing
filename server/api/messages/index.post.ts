@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
     console.error('Failed to store contact message in D1 database:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to submit contact message. Please contact us directly at 0595118973.'
+      statusMessage: 'Failed to submit contact message. Please contact us directly at 0591357411.'
     })
   }
 })

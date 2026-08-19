@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
     console.error('Failed to write booking to D1 database:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to record booking request. Please call us at 0595118973 to secure your slot.'
+      statusMessage: 'Failed to record booking request. Please call us at 0591357411 to secure your slot.'
     })
   }
 })
