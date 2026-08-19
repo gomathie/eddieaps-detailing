@@ -1,4 +1,5 @@
 import { useDb } from '~~/server/utils/db'
+import { parseJsonArray } from '~~/server/utils/json'
 import { services } from '~~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
@@ -6,7 +7,15 @@ export default defineEventHandler(async (event) => {
     const db = useDb(event)
     const result = await db.select().from(services)
     if (result && result.length > 0) {
-      return result
+      // the card grid reads `highlights`, which the static fallback supplies
+      // directly; derive the equivalent from the stored benefits list
+      return result.map(service => ({
+        ...service,
+        benefits: parseJsonArray<string>(service.benefits),
+        process: parseJsonArray<string>(service.process),
+        faqs: parseJsonArray<{ q: string, a: string }>(service.faqs),
+        highlights: parseJsonArray<string>(service.benefits).slice(0, 4),
+      }))
     }
   } catch (error) {
     console.warn('D1 Query failed or not bound yet. Serving static fallback services.', error)

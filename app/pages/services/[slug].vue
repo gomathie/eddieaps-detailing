@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
+import type { ServiceDetail } from '#shared/types'
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
 
 // Extensive static fallback catalog of services
-const staticCatalog: Record<string, any> = {
+const staticCatalog: Record<string, ServiceDetail> = {
   'complete-detailing': {
     name: 'Complete Detailing',
     description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',

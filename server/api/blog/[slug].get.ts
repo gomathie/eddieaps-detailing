@@ -1,4 +1,5 @@
 import { useDb } from '~~/server/utils/db'
+import { withPostMeta } from '~~/server/utils/blog'
 import { blogPosts } from '~~/server/database/schema'
 import { eq } from 'drizzle-orm'
 
@@ -14,9 +15,9 @@ export default defineEventHandler(async (event) => {
 
   try {
     const db = useDb(event)
-    const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1)
-    if (result && result.length > 0) {
-      return result[0]
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1)
+    if (post) {
+      return withPostMeta(post)
     }
   } catch (error) {
     console.warn(`Failed to fetch article "${slug}" from D1 database. Serving local fallback.`, error)

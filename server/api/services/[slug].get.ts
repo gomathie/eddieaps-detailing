@@ -1,6 +1,8 @@
 import { useDb } from '~~/server/utils/db'
+import { parseJsonArray } from '~~/server/utils/json'
 import { services } from '~~/server/database/schema'
 import { eq } from 'drizzle-orm'
+import type { ServiceDetail } from '#shared/types'
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')
@@ -14,21 +16,20 @@ export default defineEventHandler(async (event) => {
 
   try {
     const db = useDb(event)
-    const result = await db.select().from(services).where(eq(services.slug, slug)).limit(1)
-    if (result && result.length > 0) {
-      const s = result[0]
+    const [service] = await db.select().from(services).where(eq(services.slug, slug)).limit(1)
+    if (service) {
       return {
-        ...s,
-        benefits: JSON.parse(s.benefits || '[]'),
-        process: JSON.parse(s.process || '[]'),
-        faqs: JSON.parse(s.faqs || '[]')
+        ...service,
+        benefits: parseJsonArray<string>(service.benefits),
+        process: parseJsonArray<string>(service.process),
+        faqs: parseJsonArray<{ q: string, a: string }>(service.faqs),
       }
     }
   } catch (error) {
     console.warn(`Failed to fetch service "${slug}" from D1 database. Serving local static fallback.`, error)
   }
 
-  const staticCatalog: Record<string, any> = {
+  const staticCatalog: Record<string, ServiceDetail> = {
     'complete-detailing': {
       name: 'Complete Detailing',
       description: 'The ultimate restoration package. Full deep clean of both interior and exterior including wax, polishing, and sanitization.',

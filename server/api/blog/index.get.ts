@@ -1,4 +1,5 @@
 import { useDb } from '~~/server/utils/db'
+import { withPostMeta } from '~~/server/utils/blog'
 import { blogPosts } from '~~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
@@ -6,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const db = useDb(event)
     const result = await db.select().from(blogPosts)
     if (result && result.length > 0) {
-      return result
+      return result.map(withPostMeta)
     }
   } catch (error) {
     console.warn('Failed to query blog posts from D1. Serving static fallback blog list.', error)
