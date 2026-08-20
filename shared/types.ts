@@ -8,6 +8,10 @@ export interface AdminUser {
   id: number
   username: string
   role: string
+  /** Optional profile details; null on accounts created before these existed. */
+  fullName: string | null
+  email: string | null
+  phone: string | null
   createdAt: string | Date | null
 }
 

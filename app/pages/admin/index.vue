@@ -267,7 +267,15 @@ const userSaving = ref(false)
 
 const editUser = (user: AdminUser) => {
   // password stays blank on edit; sending it empty leaves the existing one alone
-  userForm.value = { id: user.id, username: user.username, password: '', role: user.role }
+  userForm.value = {
+    id: user.id,
+    username: user.username,
+    password: '',
+    role: user.role,
+    fullName: user.fullName ?? '',
+    email: user.email ?? '',
+    phone: user.phone ?? '',
+  }
   userError.value = ''
 }
 
@@ -778,6 +786,39 @@ const logout = async () => {
           </h3>
 
           <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Full Name</label>
+            <input
+              v-model="userForm.fullName"
+              type="text"
+              autocomplete="off"
+              placeholder="Kwame Mensah"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Email</label>
+            <input
+              v-model="userForm.email"
+              type="email"
+              autocomplete="off"
+              placeholder="kwame@eddieapsdetailing.com"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Phone</label>
+            <input
+              v-model="userForm.phone"
+              type="tel"
+              autocomplete="off"
+              placeholder="0595118973"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
             <input
               v-model="userForm.username"
@@ -846,8 +887,15 @@ const logout = async () => {
               {{ user.username.charAt(0).toUpperCase() }}
             </div>
             <div class="min-w-0 flex-1">
-              <div class="text-sm font-bold text-white">{{ user.username }}</div>
+              <div class="text-sm font-bold text-white">
+                {{ user.fullName || user.username }}
+                <span v-if="user.fullName" class="text-slate-500 font-medium">({{ user.username }})</span>
+              </div>
               <div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">{{ user.role }}</div>
+              <div v-if="user.email || user.phone" class="text-xs text-slate-400 mt-1 flex flex-wrap gap-x-3">
+                <a v-if="user.email" :href="`mailto:${user.email}`" class="hover:text-blue-400">✉ {{ user.email }}</a>
+                <a v-if="user.phone" :href="`tel:${user.phone}`" class="hover:text-blue-400">📞 {{ user.phone }}</a>
+              </div>
             </div>
             <div class="flex gap-2">
               <button
