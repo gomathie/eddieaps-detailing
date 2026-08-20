@@ -3,8 +3,9 @@ import * as schema from '../database/schema'
 import type { H3Event } from 'h3'
 
 export const useDb = (event: H3Event) => {
-  // Cloudflare bindings are injected by Nitro into event.context.cloudflare.env
-  const dbBinding = event.context.cloudflare?.env?.DB
+  // Cloudflare bindings are injected by Nitro into event.context.cloudflare.env,
+  // which is untyped here, so assert the binding we configured in wrangler.jsonc
+  const dbBinding = event.context.cloudflare?.env?.DB as D1Database | undefined
   
   if (!dbBinding) {
     throw new Error('Cloudflare D1 database binding "DB" is missing in this context. Ensure D1 is configured in wrangler.toml or wrangler.jsonc and you are running under wrangler environment.')

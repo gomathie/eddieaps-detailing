@@ -135,8 +135,8 @@ const updateBookingStatus = async (id: number, newStatus: string) => {
     refreshBookings()
   } catch (err) {
     // Local mutations for demo stability if D1 isn't writable
-    const idx = bookingsList.value.findIndex(b => b.id === id)
-    if (idx !== -1) bookingsList.value[idx].status = newStatus
+    const booking = bookingsList.value.find(b => b.id === id)
+    if (booking) booking.status = newStatus
   }
 }
 
@@ -148,8 +148,8 @@ const updateQuoteStatus = async (id: number, newStatus: string) => {
     })
     refreshQuotes()
   } catch (err) {
-    const idx = quotesList.value.findIndex(q => q.id === id)
-    if (idx !== -1) quotesList.value[idx].status = newStatus
+    const quote = quotesList.value.find(q => q.id === id)
+    if (quote) quote.status = newStatus
   }
 }
 
@@ -161,8 +161,8 @@ const markMessageRead = async (id: number) => {
     })
     refreshMessages()
   } catch (err) {
-    const idx = messagesList.value.findIndex(m => m.id === id)
-    if (idx !== -1) messagesList.value[idx].status = 'read'
+    const message = messagesList.value.find(m => m.id === id)
+    if (message) message.status = 'read'
   }
 }
 

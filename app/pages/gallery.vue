@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { GalleryItem } from '#shared/types'
 usePageSeo({
   title: 'Detailing Portfolio Gallery',
   description: 'See the results we have achieved for our clients. Browse before/after sliders and high-resolution detailing photos.',
@@ -6,11 +7,11 @@ usePageSeo({
 
 import { ref, computed } from 'vue'
 
-const categories = ['All', 'Interior', 'Exterior', 'Paint Correction', 'Engine', 'Headlights']
+const categories = ['All', 'Interior', 'Exterior', 'Paint Correction', 'Engine']
 const activeCategory = ref('All')
 
 // Static fallback gallery items
-const staticGalleryItems = [
+const staticGalleryItems: GalleryItem[] = [
   // Before / After Comparison Sliders
   {
     id: 1,
@@ -28,35 +29,20 @@ const staticGalleryItems = [
     before: '/images/paint-polishing.webp',
     after: '/images/exterior-detailing.webp'
   },
-  {
-    id: 3,
-    title: 'Hazy Headlight UV Restoration',
-    type: 'slider',
-    category: 'Headlights',
-    before: '/images/headlight-restoration.webp',
-    after: '/images/ceramic-coating.webp'
-  },
   // Standard detailing portfolio images
   {
     id: 4,
     title: 'Deep Carpet Shampooing',
     type: 'image',
     category: 'Interior',
-    url: '/images/engine-bay.webp'
-  },
-  {
-    id: 5,
-    title: 'Ceramic Coating Reflection',
-    type: 'image',
-    category: 'Paint Correction',
-    url: '/images/ceramic-coating.webp'
+    url: '/images/deep-interior.webp'
   },
   {
     id: 6,
     title: 'Engine Bay Grime Wash',
     type: 'image',
     category: 'Engine',
-    url: '/images/luxury-car.webp'
+    url: '/images/engine-bay.webp'
   },
   {
     id: 7,
@@ -74,11 +60,17 @@ const staticGalleryItems = [
   }
 ]
 
-// Query dynamic database gallery items with local fallback
-const { data: galleryItems } = await useFetch('/api/gallery', {
+// Query dynamic database gallery items with local fallback. An empty response
+// means nothing has been uploaded yet, so keep showing the curated static set
+// rather than rendering an empty gallery.
+const { data: uploadedItems } = await useFetch('/api/gallery', {
   lazy: true,
-  default: () => staticGalleryItems
+  default: (): GalleryItem[] => [],
 })
+
+const galleryItems = computed<GalleryItem[]>(() =>
+  uploadedItems.value?.length ? uploadedItems.value : staticGalleryItems,
+)
 
 // Filter items based on active tab
 const filteredItems = computed(() => {

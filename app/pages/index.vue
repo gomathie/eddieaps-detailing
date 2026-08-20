@@ -73,7 +73,8 @@ const faqs = ref([
 ])
 
 const toggleFaq = (index: number) => {
-  faqs.value[index].isOpen = !faqs.value[index].isOpen
+  const faq = faqs.value[index]
+  if (faq) faq.isOpen = !faq.isOpen
 }
 
 // Contact form fields

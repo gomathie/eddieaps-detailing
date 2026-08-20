@@ -3,6 +3,31 @@ export interface ServiceFaq {
   a: string
 }
 
+interface GalleryItemBase {
+  id: number
+  title: string
+  category: string
+}
+
+/** A before/after comparison the visitor can drag through. */
+export interface GallerySliderItem extends GalleryItemBase {
+  type: 'slider'
+  before: string
+  after: string
+}
+
+/** A single photo opened in the lightbox. */
+export interface GalleryImageItem extends GalleryItemBase {
+  type: 'image'
+  url: string
+}
+
+/**
+ * Discriminated on `type` so a `v-if="item.type === 'slider'"` branch narrows to
+ * the variant that actually carries the image fields.
+ */
+export type GalleryItem = GallerySliderItem | GalleryImageItem
+
 /** An admin portal account. The password hash is never sent to the client. */
 export interface AdminUser {
   id: number

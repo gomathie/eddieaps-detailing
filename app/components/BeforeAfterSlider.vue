@@ -39,8 +39,9 @@ const onMouseMove = (e: MouseEvent) => {
 
 const onTouchMove = (e: TouchEvent) => {
   if (!isDragging.value) return
-  if (e.touches.length > 0) {
-    handleMove(e.touches[0].clientX)
+  const touch = e.touches[0]
+  if (touch) {
+    handleMove(touch.clientX)
   }
 }
 
