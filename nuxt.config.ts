@@ -62,7 +62,9 @@ export default defineNuxtConfig({
 
   robots: {
     enabled: true,
-    disallow: ['/admin', '/admin/'],
+    groups: [
+      { userAgent: ['*'], disallow: ['/admin'] },
+    ],
   },
 
   ogImage: {
@@ -83,7 +85,10 @@ export default defineNuxtConfig({
     },
     routeRules: {
       '/api/**': { cors: true },
-      '/admin/**': { ssr: false },
+      // X-Robots-Tag is server-enforced, so the portal stays out of the index
+      // even if a crawler ignores robots.txt
+      '/admin/**': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+      '/admin': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     },
   },
 
