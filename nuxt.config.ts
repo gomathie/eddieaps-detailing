@@ -63,7 +63,7 @@ export default defineNuxtConfig({
   robots: {
     enabled: true,
     groups: [
-      { userAgent: ['*'], disallow: ['/admin'] },
+      { userAgents: ['*'], disallow: ['/admin', '/admin/'], allow: [] },
     ],
   },
 
