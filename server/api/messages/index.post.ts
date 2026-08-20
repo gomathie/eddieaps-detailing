@@ -1,8 +1,11 @@
 import { useDb } from '~~/server/utils/db'
 import { messages } from '~~/server/database/schema'
 import { readString, readEmail, readPhone, escapeHtml } from '~~/server/utils/validate'
+import { assertCountryAllowed } from '~~/server/utils/geoblock'
 
 export default defineEventHandler(async (event) => {
+  assertCountryAllowed(event)
+
   const body = await readBody(event)
 
   const input = {
