@@ -9,6 +9,9 @@
 
   html {
     scroll-behavior: smooth;
+    /* the layout is dark throughout, so native controls and scrollbars should
+       render dark rather than defaulting to the light scheme */
+    color-scheme: dark;
   }
 }
 
