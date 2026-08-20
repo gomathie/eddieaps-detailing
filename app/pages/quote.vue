@@ -26,9 +26,6 @@ const servicesList = [
   'Exterior Detailing',
   'Engine Detailing',
   'Paint Polishing & Correction',
-  'Headlight Restoration',
-  'Waxing & Paint Sealing',
-  'Ceramic Paint Protection',
   'Multiple Vehicles / Custom Package'
 ]
 

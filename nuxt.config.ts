@@ -26,7 +26,7 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Premium mobile and stationed auto detailing services. Restore your vehicle\'s shine with expert care, convenience, and eco-friendly products.' },
         { name: 'theme-color', content: '#1e40af' },
-        { name: 'keywords', content: 'mobile car detailing, auto detailing, car detailing near me, interior car cleaning, exterior detailing, headlight restoration, paint polishing' },
+        { name: 'keywords', content: 'mobile car detailing, auto detailing, car detailing near me, interior car cleaning, exterior detailing, paint polishing, paint correction' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Eddie APS Detailing' },
         { property: 'og:url', content: 'https://eddieapsdetailing.com' },

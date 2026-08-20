@@ -16,7 +16,7 @@ const schema = {
   name: 'Eddie APS Detailing',
   alternateName: 'EDDIEAPS',
   description:
-    'Professional mobile and stationed auto detailing in Ghana — interior deep cleans, paint polishing, ceramic coating and headlight restoration.',
+    'Professional mobile and stationed auto detailing in Ghana — complete detailing, interior deep cleans, exterior detailing and paint polishing.',
   url: siteUrl,
   logo: `${siteUrl}/logo-wordmark-light.svg`,
   image: `${siteUrl}/og-image.png`,

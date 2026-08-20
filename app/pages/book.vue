@@ -37,10 +37,7 @@ const servicesList = [
   'Deep Interior Detailing',
   'Exterior Detailing',
   'Engine Detailing',
-  'Paint Polishing & Correction',
-  'Headlight Restoration',
-  'Waxing & Paint Sealing',
-  'Ceramic Paint Protection'
+  'Paint Polishing & Correction'
 ]
 const timeSlots = [
   '08:00 AM',

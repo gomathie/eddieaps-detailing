@@ -1,7 +1,7 @@
 <script setup lang="ts">
 usePageSeo({
   title: 'Professional Mobile & Stationed Auto Detailing',
-  description: 'Premium mobile and stationed auto detailing in Ghana. Interior deep cleans, paint polishing, ceramic coating and headlight restoration, brought to you or done at our facility.',
+  description: 'Premium mobile and stationed auto detailing in Ghana. Complete detailing, interior deep cleans, exterior detailing and paint polishing, brought to you or done at our facility.',
 })
 
 import { ref } from 'vue'
@@ -356,12 +356,12 @@ const submitContactForm = async () => {
               Witness Incredible Restorations
             </h2>
             <p class="text-slate-400 leading-relaxed mb-8">
-              Drag the comparison slider on the right to see how we restore and repair dirty seats, paint swirl marks, and cloudy headlights back to showroom conditions.
+              Drag the comparison slider on the right to see how we restore dirty seats, tired paintwork, and swirl marks back to showroom conditions.
             </p>
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
                 <span class="w-6 h-6 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center font-bold text-xs">1</span>
-                <span class="text-sm text-slate-300 font-medium">Headlight oxidation removal</span>
+                <span class="text-sm text-slate-300 font-medium">Exterior wash and decontamination</span>
               </div>
               <div class="flex items-center space-x-3">
                 <span class="w-6 h-6 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center font-bold text-xs">2</span>
