@@ -55,6 +55,9 @@ const removeUploadedImage = (idx: number) => {
   form.value.imageUrls.splice(idx, 1)
 }
 
+// a Turnstile token is single-use, so reset the widget after each attempt
+const turnstileRef = ref<{ reset: () => void } | null>(null)
+
 const submitQuote = async () => {
   loading.value = true
   errorMsg.value = ''
@@ -70,6 +73,7 @@ const submitQuote = async () => {
     success.value = true
   } catch (err: any) {
     errorMsg.value = err.data?.message || 'Failed to submit quote request. Please try again.'
+    turnstileRef.value?.reset()
   } finally {
     loading.value = false
   }
@@ -270,6 +274,9 @@ const submitQuote = async () => {
               </div>
             </div>
           </div>
+
+          <!-- Bot verification -->
+          <TurnstileWidget ref="turnstileRef" v-model="turnstileToken" />
 
           <!-- Submit -->
           <div class="pt-6 border-t border-slate-850 flex items-center justify-end">

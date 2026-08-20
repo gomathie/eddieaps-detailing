@@ -93,10 +93,9 @@ const removeUploadedImage = (idx: number) => {
   form.value.imageUrls.splice(idx, 1)
 }
 
-// Captures the token from cloudflare turnstile callback
-const onTurnstileVerify = (token: string) => {
-  turnstileToken.value = token
-}
+// the widget writes the token through v-model; reset it after each attempt
+// because a Turnstile token is single-use
+const turnstileRef = ref<{ reset: () => void } | null>(null)
 
 const submitBooking = async () => {
   loading.value = true
@@ -113,6 +112,7 @@ const submitBooking = async () => {
     success.value = true
   } catch (err: any) {
     errorMsg.value = err.data?.message || 'Failed to submit booking. Please verify details and try again.'
+    turnstileRef.value?.reset()
   } finally {
     loading.value = false
   }
@@ -394,10 +394,8 @@ const submitBooking = async () => {
               </div>
             </div>
 
-            <!-- Turnstile Placeholder -->
-            <div class="pt-2 flex items-center justify-center">
-              <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
-            </div>
+            <!-- Bot verification -->
+            <TurnstileWidget ref="turnstileRef" v-model="turnstileToken" />
           </div>
 
           <!-- Wizard Nav Buttons -->

@@ -2,11 +2,15 @@ import { useDb } from '~~/server/utils/db'
 import { messages } from '~~/server/database/schema'
 import { readString, readEmail, readPhone, escapeHtml } from '~~/server/utils/validate'
 import { assertCountryAllowed } from '~~/server/utils/geoblock'
+import { assertHumanVerified } from '~~/server/utils/turnstile'
 
 export default defineEventHandler(async (event) => {
   assertCountryAllowed(event)
 
   const body = await readBody(event)
+
+  // bot check before any parsing or database work
+  await assertHumanVerified(event, body?.turnstileToken)
 
   const input = {
     name: readString(body?.name, { label: 'Name', max: 120 }),

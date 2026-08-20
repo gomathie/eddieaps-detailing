@@ -23,13 +23,17 @@ const form = reactive({
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const feedback = ref('')
 
+// a Turnstile token is single-use, so reset the widget after each attempt
+const turnstileToken = ref('')
+const turnstileRef = ref<{ reset: () => void } | null>(null)
+
 const submit = async () => {
   status.value = 'loading'
   feedback.value = ''
   try {
     const res = await $fetch<{ success: boolean, message: string }>('/api/messages', {
       method: 'POST',
-      body: { ...form },
+      body: { ...form, turnstileToken: turnstileToken.value },
     })
     status.value = 'success'
     feedback.value = res.message || 'Your message has been sent successfully.'
@@ -37,8 +41,10 @@ const submit = async () => {
     form.email = ''
     form.phone = ''
     form.message = ''
+    turnstileRef.value?.reset()
   } catch (err: any) {
     status.value = 'error'
+    turnstileRef.value?.reset()
     feedback.value = err?.data?.statusMessage || err?.statusMessage || `Something went wrong. Please call us directly on ${phonePrimary}.`
   }
 }
@@ -163,6 +169,8 @@ const contactMethods = [
                   placeholder="How can we help you?"
                 />
               </div>
+
+              <TurnstileWidget ref="turnstileRef" v-model="turnstileToken" />
 
               <button
                 type="submit"
