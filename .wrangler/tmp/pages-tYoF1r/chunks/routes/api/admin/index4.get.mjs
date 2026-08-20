@@ -1,0 +1,2 @@
+import{d as o,a as s,s as r,l as t,c as e}from"../../../_/nitro.mjs";import"node:buffer";import"node:timers";import"node:events";import"node:process";import"cloudflare:workers";const a=o(async o=>{try{const e=s(o);return await e.select().from(r).orderBy(t(r.sortOrder),t(r.id))}catch(o){throw console.error("Failed to list social links:",o),e({statusCode:500,statusMessage:"Failed to load social links."})}});export{a as default};
+//# sourceMappingURL=index4.get.mjs.map
