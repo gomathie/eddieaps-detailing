@@ -1,59 +1,51 @@
 import { useDb } from '~~/server/utils/db'
 import { bookings } from '~~/server/database/schema'
+import { readString, readEmail, readPhone, readYear, readImageUrls, escapeHtml } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
-  // Validation
-  const requiredFields = [
-    'customerName', 'customerEmail', 'customerPhone',
-    'vehicleMake', 'vehicleModel', 'vehicleYear', 'vehicleType',
-    'serviceName', 'preferredDate', 'preferredTime'
-  ]
-
-  for (const field of requiredFields) {
-    if (!body[field]) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: `Missing required booking field: ${field}`
-      })
-    }
+  const input = {
+    customerName: readString(body?.customerName, { label: 'Name', max: 120 }),
+    customerEmail: readEmail(body?.customerEmail),
+    customerPhone: readPhone(body?.customerPhone),
+    vehicleMake: readString(body?.vehicleMake, { label: 'Vehicle make', max: 60 }),
+    vehicleModel: readString(body?.vehicleModel, { label: 'Vehicle model', max: 60 }),
+    vehicleYear: readYear(body?.vehicleYear),
+    vehicleType: readString(body?.vehicleType, { label: 'Vehicle type', max: 60 }),
+    serviceName: readString(body?.serviceName, { label: 'Service', max: 120 }),
+    preferredDate: readString(body?.preferredDate, { label: 'Preferred date', max: 40 }),
+    preferredTime: readString(body?.preferredTime, { label: 'Preferred time', max: 40 }),
+    address: readString(body?.address, { label: 'Address', required: false, max: 500 }),
+    notes: readString(body?.notes, { label: 'Notes', required: false, max: 2000 }),
   }
+  const imageUrls = readImageUrls(body?.imageUrls)
 
   try {
     const db = useDb(event)
     await db.insert(bookings).values({
-      customerName: body.customerName,
-      customerEmail: body.customerEmail,
-      customerPhone: body.customerPhone,
-      vehicleMake: body.vehicleMake,
-      vehicleModel: body.vehicleModel,
-      vehicleYear: Number(body.vehicleYear),
-      vehicleType: body.vehicleType,
-      serviceName: body.serviceName,
-      preferredDate: body.preferredDate,
-      preferredTime: body.preferredTime,
-      address: body.address || '',
-      notes: body.notes || '',
-      imageUrls: JSON.stringify(body.imageUrls || []),
+      ...input,
+      imageUrls: JSON.stringify(imageUrls),
       status: 'Pending',
-      createdAt: new Date()
+      createdAt: new Date(),
     })
 
+    // escaped: an HTML email built from anonymous visitor input
     await sendNotification(
       event,
-      `New Booking: ${body.customerName}`,
+      `New Booking: ${input.customerName}`,
       `<h2>New booking request</h2>
-       <p><strong>Customer:</strong> ${body.customerName} (${body.customerPhone}, ${body.customerEmail})</p>
-       <p><strong>Vehicle:</strong> ${body.vehicleYear} ${body.vehicleMake} ${body.vehicleModel} (${body.vehicleType})</p>
-       <p><strong>Service:</strong> ${body.serviceName}</p>
-       <p><strong>Preferred:</strong> ${body.preferredDate} at ${body.preferredTime}</p>
-       <p><strong>Address:</strong> ${body.address || 'Stationed facility'}</p>
-       <p><strong>Notes:</strong> ${body.notes || '—'}</p>`
+       <p><strong>Customer:</strong> ${escapeHtml(input.customerName)} (${escapeHtml(input.customerPhone)}, ${escapeHtml(input.customerEmail)})</p>
+       <p><strong>Vehicle:</strong> ${input.vehicleYear} ${escapeHtml(input.vehicleMake)} ${escapeHtml(input.vehicleModel)} (${escapeHtml(input.vehicleType)})</p>
+       <p><strong>Service:</strong> ${escapeHtml(input.serviceName)}</p>
+       <p><strong>Preferred:</strong> ${escapeHtml(input.preferredDate)} at ${escapeHtml(input.preferredTime)}</p>
+       <p><strong>Address:</strong> ${escapeHtml(input.address) || 'Stationed facility'}</p>
+       <p><strong>Notes:</strong> ${escapeHtml(input.notes) || '&mdash;'}</p>`
     )
 
     return { success: true, message: 'Booking logged successfully.' }
   } catch (error: any) {
+    if (error?.statusCode) throw error
     console.error('Failed to write booking to D1 database:', error)
     throw createError({
       statusCode: 500,

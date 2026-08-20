@@ -15,6 +15,13 @@
       "when": 1787158955217,
       "tag": "0001_many_silver_sable",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1787223447115,
+      "tag": "0002_far_the_renegades",
+      "breakpoints": true
     }
   ]
 }

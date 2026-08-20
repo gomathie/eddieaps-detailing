@@ -1,6 +1,7 @@
 import { useDb } from '~~/server/utils/db'
 import { bookings } from '~~/server/database/schema'
 import { eq } from 'drizzle-orm'
+import { readEnum } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event) => {
   const idStr = getRouterParam(event, 'id')
@@ -14,17 +15,13 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  if (!body.status) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Missing status payload.'
-    })
-  }
+  // only the statuses the portal actually offers may be written
+  const status = readEnum(body?.status, ['Pending', 'Confirmed', 'Completed', 'Cancelled'] as const, 'Booking status')
 
   try {
     const db = useDb(event)
     await db.update(bookings)
-      .set({ status: body.status })
+      .set({ status })
       .where(eq(bookings.id, id))
       
     return { success: true, message: 'Booking status updated.' }

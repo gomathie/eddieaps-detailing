@@ -1,0 +1,3 @@
+ALTER TABLE `users` ADD `full_name` text;--> statement-breakpoint
+ALTER TABLE `users` ADD `email` text;--> statement-breakpoint
+ALTER TABLE `users` ADD `phone` text;

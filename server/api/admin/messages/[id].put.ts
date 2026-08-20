@@ -1,6 +1,7 @@
 import { useDb } from '~~/server/utils/db'
 import { messages } from '~~/server/database/schema'
 import { eq } from 'drizzle-orm'
+import { readEnum } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event) => {
   const idStr = getRouterParam(event, 'id')
@@ -14,17 +15,13 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  if (!body.status) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Missing status parameter.'
-    })
-  }
+  // only the statuses the portal actually offers may be written
+  const status = readEnum(body?.status, ['unread', 'read', 'archived'] as const, 'Message status')
 
   try {
     const db = useDb(event)
     await db.update(messages)
-      .set({ status: body.status })
+      .set({ status })
       .where(eq(messages.id, id))
       
     return { success: true, message: 'Message status updated.' }

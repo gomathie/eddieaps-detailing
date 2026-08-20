@@ -1,6 +1,7 @@
 import { useDb } from '~~/server/utils/db'
 import { quotes } from '~~/server/database/schema'
 import { eq } from 'drizzle-orm'
+import { readEnum } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event) => {
   const idStr = getRouterParam(event, 'id')
@@ -14,17 +15,13 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  if (!body.status) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Missing status parameter.'
-    })
-  }
+  // only the statuses the portal actually offers may be written
+  const status = readEnum(body?.status, ['Pending', 'Sent', 'Declined'] as const, 'Quote status')
 
   try {
     const db = useDb(event)
     await db.update(quotes)
-      .set({ status: body.status })
+      .set({ status })
       .where(eq(quotes.id, id))
       
     return { success: true, message: 'Quote status updated.' }

@@ -14,6 +14,9 @@ interface UserInput {
   /** Undefined on edit means "keep the existing password". */
   password?: string
   role: UserRole
+  fullName: string
+  email: string
+  phone: string
 }
 
 /** Validates and normalises a user payload from the admin portal. */
@@ -31,9 +34,16 @@ export const readUserInput = (body: any, { requirePassword }: { requirePassword:
     throw createError({ statusCode: 400, statusMessage: `Role must be one of: ${USER_ROLES.join(', ')}.` })
   }
 
+  // profile details are optional, but validated when supplied
+  const fullName = readString(body?.fullName, { label: 'Full name', required: false, max: 120 })
+  const email = body?.email ? readEmail(body.email) : ''
+  const phone = body?.phone ? readPhone(body.phone) : ''
+
+  const profile = { username, role: role as UserRole, fullName, email, phone }
+
   const password = String(body?.password ?? '')
   if (!password && !requirePassword) {
-    return { username, role: role as UserRole }
+    return profile
   }
 
   if (password.length < MIN_PASSWORD_LENGTH) {
@@ -43,5 +53,5 @@ export const readUserInput = (body: any, { requirePassword }: { requirePassword:
     })
   }
 
-  return { username, password, role: role as UserRole }
+  return { ...profile, password }
 }

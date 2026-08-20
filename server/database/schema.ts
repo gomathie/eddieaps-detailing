@@ -6,6 +6,11 @@ export const users = sqliteTable('users', {
   username: text('username').notNull().unique(),
   password: text('password').notNull(), // Hashed
   role: text('role').notNull().default('admin'),
+  // Profile details. Nullable so accounts created before these columns existed
+  // keep working; the portal treats them as optional.
+  fullName: text('full_name'),
+  email: text('email'),
+  phone: text('phone'),
   createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
 
