@@ -13,6 +13,9 @@ export default defineEventHandler(async (event) => {
       id: users.id,
       username: users.username,
       role: users.role,
+      fullName: users.fullName,
+      email: users.email,
+      phone: users.phone,
       createdAt: users.createdAt,
     }).from(users).orderBy(asc(users.id))
   } catch (error) {

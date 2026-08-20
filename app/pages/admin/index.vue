@@ -260,7 +260,7 @@ const USER_ROLES = ['administrator', 'staff']
 const { data: me } = await useFetch('/api/auth/me', { lazy: true, default: () => null })
 const canManageUsers = computed(() => ['superadmin', 'administrator'].includes(me.value?.user?.role ?? ''))
 
-const blankUser = () => ({ id: 0, username: '', password: '', role: 'staff' })
+const blankUser = () => ({ id: 0, username: '', password: '', role: 'staff', fullName: '', email: '', phone: '' })
 const userForm = ref(blankUser())
 const userError = ref('')
 const userSaving = ref(false)

@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // password is optional here: blank means "leave the current one alone"
-  const { username, password, role } = readUserInput(await readBody(event), { requirePassword: false })
+  const { username, password, role, fullName, email, phone } = readUserInput(await readBody(event), { requirePassword: false })
 
   try {
     const db = useDb(event)
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     }
 
     await db.update(users)
-      .set({ username, role, ...(password ? { password: await hashPassword(password) } : {}) })
+      .set({ username, role, fullName, email, phone, ...(password ? { password: await hashPassword(password) } : {}) })
       .where(eq(users.id, id))
 
     return { success: true, message: 'User updated.' }
