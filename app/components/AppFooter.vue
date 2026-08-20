@@ -117,9 +117,17 @@ const { data: socials } = await useFetch('/api/social-links', {
       <!-- Copyright & Local Schema -->
       <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs gap-4">
         <p>© 2026 Eddie APS Detailing. All rights reserved.</p>
-        <p>Built, and maintained by the Smooth Operators.</p>
+        <p>
+          Built, and maintained by
+          <a
+            href="https://www.linkedin.com/in/mathias-lago/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-slate-300 hover:text-blue-400 underline underline-offset-2 decoration-slate-700 hover:decoration-blue-400 transition-colors"
+          >the Smooth Operators</a>.
+        </p>
         <div class="flex space-x-4">
-          <NuxtLink to="/admin/login" class="text-slate-650 hover:text-white transition-colors">Progress Portal</NuxtLink>
+          <NuxtLink to="/admin/login" class="text-slate-650 hover:text-white transition-colors">Portal</NuxtLink>
         </div>
       </div>
     </div>
