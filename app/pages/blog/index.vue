@@ -79,7 +79,7 @@ const filteredPosts = computed(() => {
       <!-- Header -->
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-          Eddie\'s Detailing Advice & Tips
+          Eddie's Detailing Advice &amp; Tips
         </h1>
         <p class="text-slate-400 text-lg leading-relaxed">
           Expert articles on how to clean, protect, and maintain your vehicle in pristine condition.
