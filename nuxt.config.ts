@@ -62,9 +62,10 @@ export default defineNuxtConfig({
 
   robots: {
     enabled: true,
-    groups: [
-      { userAgents: ['*'], disallow: ['/admin', '/admin/'], allow: [] },
-    ],
+    // Deliberately no Disallow for /admin: a disallowed URL is never crawled,
+    // so Google never sees the noindex and can still list the bare URL. The
+    // portal is kept out of the index by the X-Robots-Tag header in routeRules
+    // plus its exclusion from the sitemap.
   },
 
   ogImage: {
