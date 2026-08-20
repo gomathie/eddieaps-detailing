@@ -56,7 +56,9 @@ export const readString = (value: unknown, { label, required = true, max = 500, 
 
   const clean = stripControlChars(String(value)).trim()
 
-  if (required && clean.length < min) throw bad(`${label} is required.`)
+  if (!clean && required) throw bad(`${label} is required.`)
+  // a present-but-too-short value is a different mistake from an empty one
+  if (clean && clean.length < min) throw bad(`${label} must be at least ${min} characters.`)
   if (clean.length > max) throw bad(`${label} must be ${max} characters or fewer.`)
 
   return clean

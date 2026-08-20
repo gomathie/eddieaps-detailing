@@ -113,6 +113,17 @@ export const messages = sqliteTable('messages', {
   createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
 
+// FAQs (managed from the admin portal, rendered on the home page)
+export const faqs = sqliteTable('faqs', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  question: text('question').notNull(),
+  answer: text('answer').notNull(),
+  sortOrder: integer('sort_order').notNull().default(0),
+  published: integer('published', { mode: 'boolean' }).notNull().default(true),
+  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+})
+
 // Social Links (managed from the admin portal, rendered in the footer)
 export const socialLinks = sqliteTable('social_links', {
   id: integer('id').primaryKey({ autoIncrement: true }),

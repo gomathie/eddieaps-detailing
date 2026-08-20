@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { SocialLink, AdminUser } from '#shared/types'
+import type { SocialLink, AdminUser, Faq } from '#shared/types'
 
 definePageMeta({
   layout: 'default',
@@ -248,6 +248,53 @@ const deleteSocial = async (id: number) => {
   }
 }
 
+// --- FAQs ---
+const { data: faqsList, refresh: refreshFaqs } = await useFetch('/api/admin/faqs', {
+  lazy: true,
+  default: (): Faq[] => [],
+})
+
+const blankFaq = () => ({ id: 0, question: '', answer: '', sortOrder: 0, published: true })
+const faqForm = ref(blankFaq())
+const faqError = ref('')
+const faqSaving = ref(false)
+
+const editFaq = (faq: Faq) => {
+  faqForm.value = { ...faq }
+  faqError.value = ''
+}
+
+const resetFaqForm = () => {
+  faqForm.value = blankFaq()
+  faqError.value = ''
+}
+
+const saveFaq = async () => {
+  faqSaving.value = true
+  faqError.value = ''
+  const { id, ...payload } = faqForm.value
+  try {
+    if (id) await $fetch(`/api/admin/faqs/${id}`, { method: 'PUT', body: payload })
+    else await $fetch('/api/admin/faqs', { method: 'POST', body: payload })
+    resetFaqForm()
+    await refreshFaqs()
+  } catch (err: any) {
+    faqError.value = err?.data?.statusMessage || 'Could not save this FAQ.'
+  } finally {
+    faqSaving.value = false
+  }
+}
+
+const deleteFaq = async (id: number) => {
+  if (!confirm('Delete this FAQ? It will disappear from the home page.')) return
+  try {
+    await $fetch(`/api/admin/faqs/${id}`, { method: 'DELETE' })
+    await refreshFaqs()
+  } catch (err: any) {
+    faqError.value = err?.data?.statusMessage || 'Could not delete this FAQ.'
+  }
+}
+
 // --- Admin users ---
 const { data: usersList, refresh: refreshUsers } = await useFetch('/api/admin/users', {
   lazy: true,
@@ -402,6 +449,17 @@ const logout = async () => {
           ]"
         >
           ✉ Messages ({{ messagesList.length }})
+        </button>
+        <button
+          @click="activeTab = 'faqs'"
+          class="px-6 py-3 border-b-2 text-sm font-bold transition-colors"
+          :class="[
+            activeTab === 'faqs'
+              ? 'border-blue-500 text-white'
+              : 'border-transparent text-slate-500 hover:text-slate-300'
+          ]"
+        >
+          ❓ FAQs ({{ faqsList.length }})
         </button>
         <button
           @click="activeTab = 'socials'"
@@ -645,6 +703,117 @@ const logout = async () => {
 
         <div v-if="!filteredMessages.length" class="text-center py-20 text-slate-500">
           {{ messagesList.length ? 'No messages match your search.' : 'No message inbox history.' }}
+        </div>
+      </div>
+
+      <!-- FAQs -->
+      <div v-if="activeTab === 'faqs'" class="grid gap-8 lg:grid-cols-[24rem_1fr] items-start">
+        <!-- Add / edit form -->
+        <form
+          class="bg-slate-900 border border-slate-850 rounded-xl p-6 space-y-4"
+          @submit.prevent="saveFaq"
+        >
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">
+            {{ faqForm.id ? 'Edit FAQ' : 'Add FAQ' }}
+          </h3>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Question</label>
+            <input
+              v-model="faqForm.question"
+              type="text"
+              required
+              placeholder="How long does a detailing session take?"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Answer</label>
+            <textarea
+              v-model="faqForm.answer"
+              rows="6"
+              required
+              placeholder="It depends on the package and the vehicle's condition…"
+              class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-y"
+            />
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Order</label>
+              <input
+                v-model.number="faqForm.sortOrder"
+                type="number"
+                class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+              >
+            </div>
+            <label class="flex items-end gap-2 pb-2.5 text-sm text-slate-300">
+              <input v-model="faqForm.published" type="checkbox" class="w-4 h-4 accent-blue-600">
+              Visible
+            </label>
+          </div>
+
+          <p v-if="faqError" class="text-xs text-rose-400">{{ faqError }}</p>
+
+          <div class="flex gap-3 pt-1">
+            <button
+              type="submit"
+              :disabled="faqSaving"
+              class="flex-1 px-4 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 rounded-lg transition-colors"
+            >
+              {{ faqSaving ? 'Saving…' : faqForm.id ? 'Update FAQ' : 'Add FAQ' }}
+            </button>
+            <button
+              v-if="faqForm.id"
+              type="button"
+              class="px-4 py-2.5 text-xs font-bold text-slate-400 hover:text-white border border-slate-800 rounded-lg transition-colors"
+              @click="resetFaqForm"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <!-- Existing FAQs -->
+        <div class="space-y-4">
+          <div
+            v-for="faq in faqsList"
+            :key="faq.id"
+            class="bg-slate-900 border border-slate-850 rounded-xl p-5"
+          >
+            <div class="flex items-start gap-4">
+              <div class="min-w-0 flex-1">
+                <div class="text-sm font-bold text-white flex items-center gap-2 flex-wrap">
+                  <span class="text-slate-600">#{{ faq.sortOrder }}</span>
+                  {{ faq.question }}
+                  <span
+                    v-if="!faq.published"
+                    class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-800 rounded"
+                  >Hidden</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">{{ faq.answer }}</p>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <button
+                  class="px-4 py-2 text-xs font-bold text-slate-300 hover:text-white border border-slate-800 rounded-lg transition-colors"
+                  @click="editFaq(faq)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 rounded-lg transition-colors"
+                  @click="deleteFaq(faq.id)"
+                >
+                  🗑
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="!faqsList.length" class="text-center py-20 text-slate-500">
+            No FAQs yet. The home page is showing its built-in set until you add some here.
+          </div>
         </div>
       </div>
 

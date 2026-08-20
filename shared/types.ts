@@ -3,6 +3,15 @@ export interface ServiceFaq {
   a: string
 }
 
+/** A question and answer shown on the home page, managed from the portal. */
+export interface Faq {
+  id: number
+  question: string
+  answer: string
+  sortOrder: number
+  published: boolean
+}
+
 interface GalleryItemBase {
   id: number
   title: string

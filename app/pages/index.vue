@@ -49,32 +49,45 @@ const { data: services } = await useFetch('/api/services', {
 })
 
 // FAQ section list
-const faqs = ref([
-   {
+// Built-in set, shown until FAQs are managed from the admin portal.
+const staticFaqs = [
+  {
     question: "Do you need access to water or electricity for mobile detailing?",
     answer: "Yes. We require access to a working water source and a standard electrical outlet to perform our mobile detailing services. If you're unsure whether your location is suitable, feel free to contact us and we'll be happy to help.",
-    isOpen: false
   },
   {
     question: "What is the difference between stationed and mobile detailing?",
-    answer: "Mobile detailing brings our services directly to your driveway for maximum convenience. Stationed detailing takes place at our specialized facility, which is ideal for complex, multi-day services like paint correction and advanced ceramic coatings that require controlled environments.",
-    isOpen: false
+    answer: "Mobile detailing brings our services directly to your driveway for maximum convenience. Stationed detailing takes place at our specialized facility, which is ideal for longer jobs like paint polishing and correction that benefit from a controlled environment.",
   },
   {
     question: "How often should I get my vehicle detailed?",
-    answer: "We recommend a professional detail at once a month to preserve the vehicle's paint, seal the exterior surfaces against weather elements, and keep the interior clean, sanitized, and odor-free.",
-    isOpen: false
+    answer: "We recommend a professional detail about once a month to preserve the vehicle's paint, seal the exterior surfaces against weather elements, and keep the interior clean, sanitized, and odor-free.",
   },
   {
     question: "How long does a detailing session take?",
-    answer: "It depends on the package and the vehicle's condition. Interior or exterior details typically take 2-4 hours, while our Complete Detailing package takes 4-6 hours. Paint correction and protection packages can take a full day or more.",
-    isOpen: false
-  }
-])
+    answer: "It depends on the package and the vehicle's condition. Interior or exterior details typically take 2-4 hours, while our Complete Detailing package takes 4-6 hours.",
+  },
+]
+
+// An empty response means none have been added yet, so keep showing the
+// built-in set rather than rendering an empty FAQ section.
+// server:false keeps this out of the prerender payload. This page is
+// prerendered without D1 access, so a baked-in empty array would be reused on
+// hydration and FAQs edited in the portal would never appear. The static set
+// still renders into the prerendered HTML, so crawlers see FAQ content.
+const { data: managedFaqs } = await useFetch('/api/faqs', {
+  server: false,
+  lazy: true,
+  default: (): { question: string, answer: string }[] => [],
+})
+
+const faqs = computed(() => (managedFaqs.value?.length ? managedFaqs.value : staticFaqs))
+
+// open state lives here rather than on the items, which now come from the API
+const openFaqIndex = ref<number | null>(null)
 
 const toggleFaq = (index: number) => {
-  const faq = faqs.value[index]
-  if (faq) faq.isOpen = !faq.isOpen
+  openFaqIndex.value = openFaqIndex.value === index ? null : index
 }
 
 // Contact form fields
@@ -476,12 +489,12 @@ const submitContactForm = async () => {
               class="w-full px-6 py-5 text-left flex justify-between items-center text-white focus:outline-none"
             >
               <span class="font-semibold text-sm sm:text-base">{{ faq.question }}</span>
-              <span class="text-blue-500 text-lg transition-transform" :class="{ 'rotate-45': faq.isOpen }">
+              <span class="text-blue-500 text-lg transition-transform" :class="{ 'rotate-45': openFaqIndex === idx }">
                 +
               </span>
             </button>
             <div
-              v-show="faq.isOpen"
+              v-show="openFaqIndex === idx"
               class="px-6 pb-5 text-sm text-slate-400 border-t border-slate-800/40 pt-4 leading-relaxed"
             >
               {{ faq.answer }}
@@ -500,7 +513,7 @@ const submitContactForm = async () => {
             <span class="text-xs font-bold text-blue-500 uppercase tracking-widest block mb-3">Contact</span>
             <h2 class="text-3xl font-extrabold text-white mb-6">Let's Discuss Your Vehicle</h2>
             <p class="text-slate-350 leading-relaxed mb-8">
-              Have questions about a specific stain, ceramic coating, or need to schedule multiple vehicles? Contact us directly. We answer within an hour.
+              Have questions about a specific stain, paint correction, or need to schedule multiple vehicles? Contact us directly. We answer within an hour.
             </p>
 
             <div class="space-y-6 text-sm text-slate-300">
