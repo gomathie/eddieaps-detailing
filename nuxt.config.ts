@@ -56,10 +56,13 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
+    // the portal is private — it should never be advertised to crawlers
+    exclude: ['/admin', '/admin/**'],
   },
 
   robots: {
     enabled: true,
+    disallow: ['/admin', '/admin/'],
   },
 
   ogImage: {

@@ -115,10 +115,16 @@ const toggleFaq = (idx: number) => {
 }
 
 // Fetch dynamic service from API or fallback
+// Falling back to a different service would answer an unknown slug with HTTP 200
+// and the wrong content — a soft 404 that search engines index as duplicates.
 const { data: service } = await useFetch(`/api/services/${slug.value}`, {
   lazy: true,
-  default: () => staticCatalog[slug.value] || staticCatalog['complete-detailing']
+  default: () => staticCatalog[slug.value] ?? null,
 })
+
+if (!service.value && !staticCatalog[slug.value]) {
+  throw createError({ statusCode: 404, statusMessage: 'Detailing package not found.' })
+}
 
 usePageSeo({
   title: () => service.value?.name ?? 'Detailing Service',

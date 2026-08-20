@@ -13,6 +13,9 @@
 
     <!-- Floating Quick Actions -->
     <WhatsAppButton />
+
+    <!-- LocalBusiness structured data for local search results -->
+    <LocalBusinessSchema />
   </div>
 </template>
 

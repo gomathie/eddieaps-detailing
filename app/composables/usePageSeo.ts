@@ -25,16 +25,27 @@ export const usePageSeo = (seo: PageSeo) => {
     return image ? new URL(image, siteUrl).href : `${siteUrl}/og-image.png`
   }
 
+  // the server 308-redirects to the trailing-slash form, so that is the URL
+  // search engines should treat as canonical
+  const canonical = () => {
+    const path = route.path.endsWith('/') ? route.path : `${route.path}/`
+    return `${siteUrl}${path === '//' ? '/' : path}`
+  }
+
   useSeoMeta({
     title,
     description,
     ogTitle: socialTitle,
     ogDescription: description,
     ogType: seo.type ?? 'website',
-    ogUrl: () => `${siteUrl}${route.path}`,
+    ogUrl: canonical,
     ogImage: socialImage,
     twitterTitle: socialTitle,
     twitterDescription: description,
     twitterImage: socialImage,
+  })
+
+  useHead({
+    link: [{ rel: 'canonical', href: canonical }],
   })
 }

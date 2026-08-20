@@ -77,10 +77,9 @@ const { data: socials } = await useFetch('/api/social-links', {
           <ul class="space-y-3 text-sm">
             <li><NuxtLink to="/services/complete-detailing" class="hover:text-white transition-colors">Complete Detailing</NuxtLink></li>
             <li><NuxtLink to="/services/deep-interior" class="hover:text-white transition-colors">Deep Interior Detailing</NuxtLink></li>
-            <li><NuxtLink to="/services/exterior" class="hover:text-white transition-colors">Exterior Detailing</NuxtLink></li>
+            <li><NuxtLink to="/services/exterior-detailing" class="hover:text-white transition-colors">Exterior Detailing</NuxtLink></li>
             <li><NuxtLink to="/services/paint-polishing" class="hover:text-white transition-colors">Paint Polishing</NuxtLink></li>
-            <li><NuxtLink to="/services/paint-protection" class="hover:text-white transition-colors">Paint Protection & Waxing</NuxtLink></li>
-            <li><NuxtLink to="/services/headlight-restoration" class="hover:text-white transition-colors">Headlight Restoration</NuxtLink></li>
+            <li><NuxtLink to="/services" class="hover:text-white transition-colors">View All Packages</NuxtLink></li>
           </ul>
         </div>
 
